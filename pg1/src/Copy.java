@@ -1,0 +1,165 @@
+import org.apache.commons.cli.*;
+import java.io.*;
+import java.nio.file.*;
+import java.nio.channels.*;
+import static java.nio.file.StandardCopyOption.*;
+
+/**
+ * <h1>HW #1 for Operating System</h1>
+ *
+ * Demo of different copy API in Java
+ *
+ * @author Yuchen Ying, Yue Yin
+ * @version $Revision$, $Date$
+ */
+public class Copy {
+    /**
+     * Main function
+     *
+     * @param args Commandline Options
+     */
+    public static void main(String[] args) {
+        Option help = new Option("h", "Print this message");
+        Option mode = OptionBuilder.withArgName("mode")
+                        .hasArg()
+                        .isRequired()
+                        .withDescription("Which API should I use. 1 for java.io.*, 2 for NIO.2, 3 for JNI")
+                        .create("m");
+        Option from = OptionBuilder.withArgName("file")
+                        .hasArg()
+                        .isRequired()
+                        .withDescription("File to be copied")
+                        .create("f");
+        Option to = OptionBuilder.withArgName("file")
+                        .hasArg()
+                        .isRequired()
+                        .withDescription("Destination file")
+                        .create("t");
+        Options options = new Options();
+        options.addOption(help);
+        options.addOption(mode);
+        options.addOption(from);
+        options.addOption(to);
+
+        CommandLineParser parser = new PosixParser();
+        CommandLine cmd = null;
+
+        Copy copy = new Copy();
+
+        try {
+            cmd = parser.parse(options, args);
+        }
+        catch(ParseException e){
+            System.err.println( "ERR: command line option parsing failed. reason: " + e.getMessage() );
+            copy.usage(options);
+            return;
+        }
+        String optMode, optTo, optFrom;
+
+        if(cmd.hasOption("help")){
+            copy.usage(options);
+            return;
+        }
+        optMode = cmd.getOptionValue("m");
+        optTo = cmd.getOptionValue("t");
+        optFrom = cmd.getOptionValue("f");
+
+        //System.err.println( optMode );
+
+        switch(optMode){
+            case "1":
+                copy.ioCopy(optFrom, optTo);
+                break;
+            case "2":
+                copy.nio2Copy(optFrom, optTo);
+                break;
+            case "3":
+                copy.jniCopy(optFrom, optTo);
+                break;
+            default:
+                copy.usage(options);
+                break;
+        }
+    }
+
+    /**
+     * Print usage information
+     *
+     * @param options Options required by package `commandline`
+     */
+    protected void usage(Options options){
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp( "Program #1 for Operating Systems, demostrating different ways to copy file using different level of APIs.", options );
+    }
+
+    /**
+     * Copies src file to dst file using java.io.*
+     * @param from The file to be copied
+     * @param to The destination file
+     * @see java.io
+     */
+    protected void ioCopy(String from, String to){
+        try {
+            InputStream in = new FileInputStream(new File(from));
+            OutputStream out = new FileOutputStream(new File(to));
+            // Transfer bytes from in to out
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+            System.err.println("Reached the end of try block, I think the copy is successful.");
+        }
+        catch(IOException e){
+            System.err.println( "Copy using java.io failed, error message:" + e.getMessage() );
+        }
+        return;
+    }
+
+    /**
+     * Copies src file to dst file using java.nio.file.*
+     * @param from The file to be copied
+     * @param to The destination file
+     * @see java.nio.file
+     */
+    protected void nio2Copy(String from, String to){
+        try {
+            Path from_path = Paths.get(from);
+            Path to_path = Paths.get(to);
+            Files.copy(from_path, to_path, REPLACE_EXISTING);
+            System.err.println("Reached the end of try block, I think the copy is successful.");
+        } catch (Exception e) {
+            System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
+        }
+    }
+
+    /**
+     * Copies src file to dst file using JNI, a wrapper function around _jniCopy() function
+     *
+     * @param from The file to be copied
+     * @param to The destination file
+     * @see #_jniCopy
+     */
+    protected void jniCopy(String from, String to){
+        int ret = this._jniCopy(from, to);
+        if (ret == 0){
+            System.err.println("JNI copy succeed!");
+        }
+        else{
+            System.err.println("JNI copy failed! Return code: " + ret);
+        }
+    }
+
+    /**
+     * The actual JNI function
+     *
+     * @param from The file to be copied
+     * @param to The destination file
+     */
+    protected native int _jniCopy(String from, String to);
+    static {
+        System.loadLibrary("copy");
+    }
+} 
