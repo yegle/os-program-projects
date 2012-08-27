@@ -100,6 +100,7 @@ public class Copy {
      */
     protected void ioCopy(String from, String to){
         try {
+            long t11=System.nanoTime();
             InputStream in = new FileInputStream(new File(from));
             OutputStream out = new FileOutputStream(new File(to));
             // Transfer bytes from in to out
@@ -111,6 +112,9 @@ public class Copy {
             in.close();
             out.close();
             System.err.println("Reached the end of try block, I think the copy is successful.");
+
+            long t12=System.nanoTime();
+            System.out.println("The running time of copying the file using java.io is:"+(t12-t11)+"ns");
         }
         catch(IOException e){
             System.err.println( "Copy using java.io failed, error message:" + e.getMessage() );
@@ -126,10 +130,13 @@ public class Copy {
      */
     protected void nio2Copy(String from, String to){
         try {
+            long t21=System.nanoTime();
             Path from_path = Paths.get(from);
             Path to_path = Paths.get(to);
             Files.copy(from_path, to_path, REPLACE_EXISTING);
             System.err.println("Reached the end of try block, I think the copy is successful.");
+            long t22=System.nanoTime();
+            System.out.println("The running time of copying the file using nio2 is:"+(t22-t21)+"ns");
         } catch (Exception e) {
             System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
         }
@@ -143,11 +150,15 @@ public class Copy {
      * @see #_jniCopy
      */
     protected void jniCopy(String from, String to){
+
+	long t31=System.nanoTime();
         int ret = this._jniCopy(from, to);
         if (ret == 0){
             System.err.println("JNI copy succeed!");
-        }
-        else{
+            long t32=System.nanoTime();
+            System.out.println("The running time of copying the file using jni is:"+(t32-t31)+"ns");
+       }
+       else{
             System.err.println("JNI copy failed! Return code: " + ret);
         }
     }
