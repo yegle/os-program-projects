@@ -13,6 +13,17 @@ import static java.nio.file.StandardCopyOption.*;
  * @version $Revision$, $Date$
  */
 public class Copy {
+
+    /**
+     * Hold the start time of copy operation
+     */
+    public long copy_start;
+
+    /**
+     * Hold the end time of copy operation
+     */
+    public long copy_end;
+
     /**
      * Main function
      *
@@ -64,9 +75,6 @@ public class Copy {
         optTo = cmd.getOptionValue("t");
         optFrom = cmd.getOptionValue("f");
 
-        //System.err.println( optMode );
-        long time_start = System.nanoTime();
-
         switch(optMode){
             case "1":
                 copy.ioCopy(optFrom, optTo);
@@ -81,8 +89,7 @@ public class Copy {
                 copy.usage(options);
                 System.exit(1);
         }
-        long time_end = System.nanoTime();
-        System.err.println(String.format("Time used in copy operation is %s nano seconds", time_end - time_start));
+        System.err.println(String.format("Time used in copy operation is %s nano seconds", copy.copy_end - copy.copy_start));
     }
 
     /**
@@ -102,6 +109,7 @@ public class Copy {
      * @see java.io
      */
     protected void ioCopy(String from, String to){
+        this.copy_start = System.nanoTime();
         try {
             InputStream in = new FileInputStream(new File(from));
             OutputStream out = new FileOutputStream(new File(to));
@@ -120,7 +128,7 @@ public class Copy {
         catch(IOException e){
             System.err.println( "Copy using java.io failed, error message:" + e.getMessage() );
         }
-        return;
+        this.copy_end = System.nanoTime();
     }
 
     /**
@@ -130,6 +138,7 @@ public class Copy {
      * @see java.nio.file
      */
     protected void nio2Copy(String from, String to){
+        this.copy_start = System.nanoTime();
         try {
             Path from_path = Paths.get(from);
             Path to_path = Paths.get(to);
@@ -139,6 +148,7 @@ public class Copy {
         } catch (Exception e) {
             System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
         }
+        this.copy_end = System.nanoTime();
     }
 
     /**
@@ -149,7 +159,9 @@ public class Copy {
      * @see #_jniCopy
      */
     protected void jniCopy(String from, String to){
+        this.copy_start = System.nanoTime();
         int ret = this._jniCopy(from, to);
+        this.copy_end = System.nanoTime();
         if (ret == 0){
             long bytes_copied;
             try{

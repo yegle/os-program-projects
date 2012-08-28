@@ -8,6 +8,8 @@ MODULES = Copy.class libcopy.h libcopy.so
 
 default: $(MODULES)
 
+.PHONY: clean 
+
 libcopy.h: Copy.java
 	javah -jni $(JAVAOPT) -o libcopy.h Copy
 
@@ -29,5 +31,5 @@ clean:
 	javac $(JAVAOPT) $<
 
 test_%: Copy.class libcopy.so
+	dd if=/dev/urandom of=${TMP_FROM} bs=1k count=10240
 	LD_LIBRARY_PATH=. java $(JAVAOPT) Copy -m $* -f ${TMP_FROM} -t ${TMP_TO}
-
