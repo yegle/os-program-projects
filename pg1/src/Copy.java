@@ -105,12 +105,14 @@ public class Copy {
             // Transfer bytes from in to out
             byte[] buf = new byte[1024];
             int len;
+            long bytes_copied = 0;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
+                bytes_copied += len;
             }
             in.close();
             out.close();
-            System.err.println("Reached the end of try block, I think the copy is successful.");
+            System.err.println(String.format("Copied %s bytes, from %s to %s", bytes_copied, from, to));
         }
         catch(IOException e){
             System.err.println( "Copy using java.io failed, error message:" + e.getMessage() );
@@ -129,7 +131,8 @@ public class Copy {
             Path from_path = Paths.get(from);
             Path to_path = Paths.get(to);
             Files.copy(from_path, to_path, REPLACE_EXISTING);
-            System.err.println("Reached the end of try block, I think the copy is successful.");
+            long bytes_copied = Files.size(from_path);
+            System.err.println(String.format("Copied %s bytes, from %s to %s", bytes_copied, from, to));
         } catch (Exception e) {
             System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
         }
@@ -145,7 +148,14 @@ public class Copy {
     protected void jniCopy(String from, String to){
         int ret = this._jniCopy(from, to);
         if (ret == 0){
-            System.err.println("JNI copy succeed!");
+            long bytes_copied;
+            try{
+                bytes_copied = Files.size(Paths.get(from));
+            } catch(Exception e){
+                System.err.println( "Copy using JNI succeed but failed in getting copied_bytes, error message:" + e.toString() );
+                return;
+            }
+            System.err.println(String.format("Copied %s bytes, from %s to %s", bytes_copied, from, to));
         }
         else{
             System.err.println("JNI copy failed! Return code: " + ret);
