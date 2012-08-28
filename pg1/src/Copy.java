@@ -65,6 +65,7 @@ public class Copy {
         optFrom = cmd.getOptionValue("f");
 
         //System.err.println( optMode );
+        long time_start = System.nanoTime();
 
         switch(optMode){
             case "1":
@@ -78,8 +79,10 @@ public class Copy {
                 break;
             default:
                 copy.usage(options);
-                break;
+                System.exit(1);
         }
+        long time_end = System.nanoTime();
+        System.err.println(String.format("Time used in copy operation is %s nano seconds", time_end - time_start));
     }
 
     /**

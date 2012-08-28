@@ -35,3 +35,7 @@ To test each APIs, run `make test_#`, where # is a number. Different number has 
  3. JNI
 
 e.g. Run `make test_1` in `src/` directory will test the `java.io` API.
+
+## Document
+
+The javadoc was included in the source code. To generate the document, go to `src/` directory then run `make doc`. The document will be generated at the root directory.
