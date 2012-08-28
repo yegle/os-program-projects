@@ -67,7 +67,7 @@ public class Copy {
         }
         String optMode, optTo, optFrom;
 
-        if(cmd.hasOption("help")){
+        if(cmd.hasOption("h")){
             copy.usage(options);
             return;
         }
