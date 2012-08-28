@@ -138,12 +138,18 @@ public class Copy {
      * @see java.nio.file
      */
     protected void nio2Copy(String from, String to){
+        try {
+            long bytes_copied = Files.size(from_path);
+        } catch (Exception e) {
+            System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
+            return;
+        }
+
         this.copy_start = System.nanoTime();
         try {
             Path from_path = Paths.get(from);
             Path to_path = Paths.get(to);
             Files.copy(from_path, to_path, REPLACE_EXISTING);
-            long bytes_copied = Files.size(from_path);
             System.err.println(String.format("Copied %s bytes, from %s to %s", bytes_copied, from, to));
         } catch (Exception e) {
             System.err.println( "Copy using java.nio failed, error message:" + e.toString() );
