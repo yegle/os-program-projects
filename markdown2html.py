@@ -31,5 +31,5 @@ if __name__ == '__main__':
     payload = json.dumps(d)
     
     r = requests.post(API, data=payload)
-    result = '<link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>\n' + r.text
+    result = '<link href="http://yegle.github.com/assets/themes/the-program/css/style.css" rel="stylesheet"></link>\n<div class="entry-content">%s</div>' % (r.text,)
     open("%s.html" % (md[:-3],), 'w').write(result)
