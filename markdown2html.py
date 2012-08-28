@@ -33,5 +33,5 @@ if __name__ == '__main__':
     #payload = json.dumps(d)
     
     r = requests.post(API, data=open(md).read(), headers = {'content-type': 'text/plain'})
-    result = '<link href="http://yegle.github.com/assets/themes/the-program/css/style.css" rel="stylesheet"></link>\n<div class="entry-content">%s</div>' % (r.text,)
+    result = '<meta http-equiv="Content-Language" content="en-us" /><link href="http://yegle.github.com/assets/themes/the-program/css/style.css" rel="stylesheet"></link>\n<div class="entry-content">%s</div>' % (r.text,)
     open("%s.html" % (md[:-3],), 'w').write(result)
