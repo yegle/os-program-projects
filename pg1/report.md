@@ -128,113 +128,29 @@ By getting familar with these file system calls, we can figure out the main proc
  4. Call `read()` on the source file's descriptor and call `write()` on the destination file's descriptor. Loop until the file is completely copied.
  5. Call `close()` on both the source file and destination file's descriptor.
 
-## Related System Calls
+## Related System Calls for File Management
 
-### `open`
+### `open()`
 
 Open or create a file for reading or writing
-
-    SYNOPSIS 
-        #include <sys/types.h> 
-        #include <sys/stat.h> 
-        #include <fcntl.h> 
-    
-        int open (const char *path, int oflag); 
-    
-    DESCRIPTION 
-        path points to a path name naming a file.  open opens a file descriptor 
-        for the named file and sets the file status flags according to the value 
-        of oflag. 
-    
-        O_RDONLY 
-               Open for reading only. 
-    
-        O_WRONLY 
-               Open for writing only. 
-    
-        O_RDWR Open for reading and writing. 
-
 
 ### `read()`
 
 Read input
 
-    SYNOPSIS 
-        #include <unistd.h> 
-        ssize_t read(int fildes, void *buf, size_t nbyte); 
-    
-    DESCRIPTION 
-        read attempts to read nbyte bytes from the file associated with fildes 
-        into the buffer pointed to by buf.  If nbyte is zero, read returns zero 
-        and has no other results. 
-
-
 ### `write()`
 
 Write output
-
-    SYNOPSIS 
-        #include <unistd.h> 
-        ssize_t write(int fildes, const void *buf, size_t nbyte); 
-    
-    DESCRIPTION 
-        write attempts to write nbyte bytes from the buffer pointed to by buf to 
-        the file associated with fildes.  If nbyte is zero and the file is a 
-        regular file, write returns zero and has no other results.  fildes is a 
-        file descriptor. 
-
 
 ### `close()`
 
 Delete a descriptor
 
-    SYNOPSIS 
-        #include <unistd.h> 
-        int close(int fildes); 
-    
-    DESCRIPTION 
-        close closes the file descriptor indicated by fildes. 
-
 ### `stat()` and `lstat()`
 
 Get file status
-
-    SYNOPSIS
-        #include <sys/stat.h>
-        int lstat(const char *restrict path, struct stat *restrict buf);
-        int stat(const char *restrict path, struct stat *restrict buf);
-    
-    DESCRIPTION
-        The stat() function obtains information about the file pointed to by
-        path.  Read, write or execute permission of the named file is not
-        required, but all directories listed in the path name leading to the file
-        must be searchable.
-
-        The lstat() function is like stat() except in the case where the named
-        file is a symbolic link; lstat() returns information about the link,
-        while stat() returns information about the file the link references.
-        Unlike other filesystem objects, symbolic links may not have an owner,
-        group, access mode, times, etc.  Instead, these attributes may be taken
-        from the directory that contains the link.  In this case, the only
-        attributes returned from an lstat() that refer to the symbolic link
-        itself are the file type (S_IFLNK), size, blocks, and link count (always
-                1).
-
 
 ### `unlink()`
 
 Remove directory entry
 
-    SYNOPSIS
-        #include <unistd.h>
-    
-        int unlink(const char *path);
-    
-    DESCRIPTION
-        The unlink() function removes the link named by path from its directory
-        and decrements the link count of the file which was referenced by the
-        link.  If that decrement reduces the link count of the file to zero, and
-        no process has the file open, then all resources associated with the file
-        are reclaimed.  If one or more process have the file open when the last
-        link is removed, the link is removed, but the removal of the file is
-        delayed until all references to it have been closed.
