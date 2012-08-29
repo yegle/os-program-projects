@@ -205,14 +205,20 @@ Get file status
         int stat(const char *restrict path, struct stat *restrict buf);
     
     DESCRIPTION
-        The stat() function obtains information about the file pointed to by path.  Read, write or execute permission of the named file is
-        not required, but all directories listed in the path name leading to the file must be searchable.
-    
-        The lstat() function is like stat() except in the case where the named file is a symbolic link; lstat() returns information about
-        the link, while stat() returns information about the file the link references.  Unlike other filesystem objects, symbolic links
-        may not have an owner, group, access mode, times, etc.  Instead, these attributes may be taken from the directory that contains
-        the link.  In this case, the only attributes returned from an lstat() that refer to the symbolic link itself are the file type
-        (S_IFLNK), size, blocks, and link count (always 1).
+        The stat() function obtains information about the file pointed to by
+        path.  Read, write or execute permission of the named file is not
+        required, but all directories listed in the path name leading to the file
+        must be searchable.
+
+        The lstat() function is like stat() except in the case where the named
+        file is a symbolic link; lstat() returns information about the link,
+        while stat() returns information about the file the link references.
+        Unlike other filesystem objects, symbolic links may not have an owner,
+        group, access mode, times, etc.  Instead, these attributes may be taken
+        from the directory that contains the link.  In this case, the only
+        attributes returned from an lstat() that refer to the symbolic link
+        itself are the file type (S_IFLNK), size, blocks, and link count (always
+                1).
 
 
 ### `unlink()`
@@ -225,7 +231,10 @@ Remove directory entry
         int unlink(const char *path);
     
     DESCRIPTION
-        The unlink() function removes the link named by path from its directory and decrements the link count of the file which was refer-
-        enced by the link.  If that decrement reduces the link count of the file to zero, and no process has the file open, then all
-        resources associated with the file are reclaimed.  If one or more process have the file open when the last link is removed, the
-        link is removed, but the removal of the file is delayed until all references to it have been closed.
+        The unlink() function removes the link named by path from its directory
+        and decrements the link count of the file which was referenced by the
+        link.  If that decrement reduces the link count of the file to zero, and
+        no process has the file open, then all resources associated with the file
+        are reclaimed.  If one or more process have the file open when the last
+        link is removed, the link is removed, but the removal of the file is
+        delayed until all references to it have been closed.
