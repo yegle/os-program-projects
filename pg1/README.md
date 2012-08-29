@@ -1,6 +1,6 @@
 # HW #1 for Operating System
 
-by Yuchen Ying <yegle@uga.edu> and Yue Yin <yinyue@uga.edu>.
+by [Yuchen Ying](yegle@uga.edu) and [Yue Yin](yinyue@uga.edu).
 
 ## Program Introduction & Directory Structure
 
