@@ -3,9 +3,18 @@ import java.io.*;
 
 public class Client
 {
+    protected Socket sock = null;
+    protected PrintWriter out = null;
+    protected BufferedReader in = null;
+
 	public static void main(String[] args){
+        Client c = new Client();
 		try{
-			Socket sock = new Socket("127.0.0.1",6013);
+            c.connect("127.0.0.1", 6013);
+            c.send("test");
+            System.out.println(c.read());
+            /*
+
 			
 			InputStream in = sock.getInputStream();
 			BufferedReader bin = new
@@ -15,13 +24,13 @@ public class Client
 				System.out.println(line);
 	
 			//sock.setSendBufferSize(100);
-			PrintWriter bout = new 
-				PrintWriter(sock.getOutputStream());
-			BufferedReader wt=new BufferedReader(new
-				InputStreamReader(System.in));
+            PrintWriter bout = new 
+                PrintWriter(sock.getOutputStream());
+            BufferedReader wt = new BufferedReader(new
+                    InputStreamReader(System.in));
 			
 			while(true){
-				System.out.println("do while"); //这里有问题 while没有进来
+				System.out.println("do while");
 				String s=wt.readLine();
 				System.out.println(s);
 				bout.println(line);
@@ -35,10 +44,26 @@ public class Client
 			//System.out.println("sent");
 			
 			sock.close();
+            */
 			
 		}
-		catch(IOException ioe){
-			System.err.println(ioe);
+		catch(Exception e){
+            System.err.println( "Exception catched, message: " + e.toString());
 		}
 	}
+
+    protected void connect(String ip, int port) throws Exception {
+        this.sock = new Socket(ip,port);
+        this.out = new PrintWriter(this.sock.getOutputStream(), true);
+        this.in = new BufferedReader(new InputStreamReader(this.sock.getInputStream()));
+        return;
+    }
+
+    protected void send(String msg){
+        this.out.println(msg);
+    }
+    
+    protected String read() throws Exception {
+        return this.in.readLine();
+    }
 }
