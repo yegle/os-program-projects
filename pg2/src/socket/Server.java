@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.net.URLEncoder;
 
 public class Server
 {
@@ -12,7 +13,8 @@ public class Server
 
             while(true){
                 ClientConnection connection = s.getConnection();
-                String msg = connection.getMessage();
+
+                MessageImpl msg = connection.getMessage();
 
                 connection.reply(s.process(msg));
             }
@@ -27,29 +29,31 @@ public class Server
 
     protected ClientConnection getConnection() throws Exception {
         Socket clientSocket = this.sock.accept();
+        InetAddress address = clientSocket.getInetAddress();
+        System.err.println("Connect from [" + address.getHostAddress() + "]");
         return new ClientConnection(clientSocket);
     }
 
-    protected String process(String msg){
-        return "we get it";
+    protected MessageImpl process(MessageImpl msg) throws Exception {
+        msg.setCounts();
+        return msg;
     }
 
 }
 
 class ClientConnection{
-    protected BufferedReader rcvFrom;
-    protected PrintWriter sendTo;
+    protected ObjectInputStream rcvFrom;
+    protected ObjectOutputStream sendTo;
 
     public ClientConnection(Socket s) throws Exception {
-        this.rcvFrom = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        this.sendTo = new PrintWriter(s.getOutputStream(), true);
+        this.rcvFrom = new ObjectInputStream(s.getInputStream());
+        this.sendTo = new ObjectOutputStream(s.getOutputStream());
     }
 
-    protected String getMessage() throws Exception {
-        System.err.println("We received something!");
-        return this.rcvFrom.readLine();
+    protected MessageImpl getMessage() throws Exception {
+        return (MessageImpl) this.rcvFrom.readObject();
     }
-    protected void reply(String response){
-        this.sendTo.println(response);
+    protected void reply(MessageImpl msg) throws Exception {
+        this.sendTo.writeObject(msg);
     }
 }

@@ -1,9 +1,9 @@
 JAVA_HOME := $(shell echo $(JAVA_HOME))
 
 JAVAOPT := -classpath ".:${JAVA_HOME}/jre/lib"
-MODULES = Client.class Server.class
+MODULES := $(wildcard *.java)
 
-default: $(MODULES)
+default: $(MODULES:.java=.class)
 
 .PHONY: clean 
 
