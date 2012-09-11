@@ -12,3 +12,6 @@ clean:
 
 %.class: %.java
 	javac $(JAVAOPT) $<
+
+doc: $(MODULES)
+	javadoc $(JAVAOPT) $(MODULES) -d ../doc

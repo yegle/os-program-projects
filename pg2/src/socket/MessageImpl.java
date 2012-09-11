@@ -2,61 +2,71 @@ import java.lang.Character;
 import java.io.*;
 import java.net.*;
 
+/**
+ * implementation of Message interface
+ *
+ * also implements the Serializable class to do serialization easier
+ */
 public class MessageImpl implements Message, Serializable {
+    /**
+     * holds the String representation of this instance
+     */
     protected String input;
+    /**
+     * holds the number of character in this instance
+     */
     protected int CharacterCount;
+    /**
+     * holds the number of digit in this instance
+     */
     protected int DigitCount;
 
+    /**
+     * constructor
+     *
+     * @param input String literal message
+     */
     public MessageImpl(String input){
         this.input = input;
-
-        this.setCounts();
     }
 
+    /**
+     * setter for DigitCount and CharacterCount
+     */
     public void setCounts(){
-        this.CharacterCount = this.getCharacterCount();
-        this.DigitCount = this.getDigitCount();
-        return;
-    }
-
-    public int getCharacterCount(){
-        return this.input.length();
-    }
-
-    public int getDigitCount(){
-        int ret = 0;
+        int c = 0;
         for (int i=0; i< this.input.length(); i++){
             char c = this.input.charAt(i);
             if(Character.isDigit(c)){
-                ret++;
+                c++;
             }
         }
 
-        return ret;
+        this.DigitCount = c;
+        this.CharacterCount = this.input.length();
     }
 
-    public String serialize() throws Exception {
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(bs);
-        out.writeObject(this.input);
-
-        return URLEncoder.encode(bs.toString(),"utf-8");
+    /**
+     * getter for CharacterCount
+     *
+     * @return number of characters in this instance
+     */
+    public int getCharacterCount(){
+        return this.CharacterCount;
     }
 
-    public static MessageImpl normalize(String str) throws Exception {
-        try{
-            String originalString = URLDecoder.decode(str, "utf-8");
-            ByteArrayInputStream bi = new ByteArrayInputStream(originalString.getBytes());
-            ObjectInputStream in = new ObjectInputStream(bi);
-            return (MessageImpl) in.readObject();
-        }
-        catch(Exception e){
-            System.err.println("test");
-            System.err.println( "Exception catched, message: " + e.toString());
-            return new MessageImpl("");
-        }
+    /**
+     * getter for DigitCount
+     *
+     * @return number of digits in this instance
+     */
+    public int getDigitCount(){
+        return this.DigitCount;
     }
 
+    /**
+     * simple class test function
+     */
 	public static void main(String[] args){
         try{
             String str = "asd023cjm-293ir098[zxdcv";
