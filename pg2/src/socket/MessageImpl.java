@@ -31,7 +31,7 @@ public class MessageImpl implements Message, Serializable {
     }
 
     /**
-     * setter for Digit Count and CharacterCount
+     * setter for DigitCount and CharacterCount
      */
     public void setCounts(){
         int c = 0;
@@ -42,7 +42,7 @@ public class MessageImpl implements Message, Serializable {
             }
         }
 
-        this.DigitCount = c
+        this.DigitCount = c;
         this.CharacterCount = this.input.length();
     }
 
@@ -61,7 +61,7 @@ public class MessageImpl implements Message, Serializable {
      * @return number of digits in this instance
      */
     public int getDigitCount(){
-        return this.DigitCount
+        return this.DigitCount;
     }
 
     /**
