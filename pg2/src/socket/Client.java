@@ -10,44 +10,11 @@ public class Client
 	public static void main(String[] args){
         Client c = new Client();
 		try{
-            c.connect("127.0.0.1", 6013);
+            c.connect("127.0.0.1", 4328);
             c.send("test");
             System.out.println(c.read());
-            /*
-
 			
-			InputStream in = sock.getInputStream();
-			BufferedReader bin = new
-				BufferedReader(new InputStreamReader(in));
-			String line;
-			while((line=bin.readLine())!=null)
-				System.out.println(line);
-	
-			//sock.setSendBufferSize(100);
-            PrintWriter bout = new 
-                PrintWriter(sock.getOutputStream());
-            BufferedReader wt = new BufferedReader(new
-                    InputStreamReader(System.in));
-			
-			while(true){
-				System.out.println("do while");
-				String s=wt.readLine();
-				System.out.println(s);
-				bout.println(line);
-				bout.flush();
-				if(line.equals("end"))
-					break;
-				System.out.println(bin.readLine());
-			}
-				
-			//bout.println("client:hello");
-			//System.out.println("sent");
-			
-			sock.close();
-            */
-			
-		}
-		catch(Exception e){
+		} catch(Exception e){
             System.err.println( "Exception catched, message: " + e.toString());
 		}
 	}
