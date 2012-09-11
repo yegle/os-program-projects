@@ -7,7 +7,6 @@ import java.io.*;
  * Demo of Client-Service using socket
  *
  * @author Yuchen Ying, Yue Yin
- * @version $Revision$, $Date$
  */
 
 
@@ -56,7 +55,8 @@ public class Client
     /**
      * Set up connection configuration
      * 
-     * @param ip,port  the ip and port used to make connection
+     * @param ip String ip address of server side
+     * @param port String port used to make connection
      */
     protected void connect(String ip, int port) throws Exception {
         this.sock = new Socket(ip,port);
@@ -78,7 +78,7 @@ public class Client
      * Read function
      * Read the message from Object
      *
-     * @return this.in.readObject() the message read from the Object
+     * @return the message read from the Object
      */
     protected MessageImpl read() throws Exception {
         return (MessageImpl) this.in.readObject();
