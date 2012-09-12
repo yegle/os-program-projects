@@ -14,7 +14,7 @@ public class Client {
     protected String url;
 	
 	/**
-     * Client function
+     * constructor
 	 * Get url
 	 *
 	 * @param url the url String
@@ -56,6 +56,8 @@ public class Client {
 
     /**
      * process information to msg
+     *
+     * @param input the String to be processed
 	 *
      */
     protected void process(String input) throws Exception{
