@@ -8,7 +8,7 @@ default: $(MODULES:.java=.class)
 .PHONY: clean 
 
 clean:
-	rm -rf $(MODULES:.java=.class) ../doc
+	rm -rf $(MODULES:.java=.class) doc
 
 %.class: %.java
 	javac $(JAVAOPT) $<
