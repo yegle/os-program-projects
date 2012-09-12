@@ -53,4 +53,4 @@ The version requirement may not be strict as the version given above. But only v
 
 ## Document
 
-The javadoc was included in the source code. To generate the document, go to `src/` directory then run `make doc`. The document will be generated at the root directory.
+The javadoc was included in the source code. To generate the document, go to `src/socket` or `src/rmi` directory then run `make doc`. The document will be generated at `$PWD/doc`.
