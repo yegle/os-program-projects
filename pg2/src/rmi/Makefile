@@ -1,6 +1,6 @@
 JAVA_HOME := $(shell echo $(JAVA_HOME))
 
-JAVAOPT := -classpath ".:${JAVA_HOME}/jre/lib"
+JAVAOPT := -classpath ".:${JAVA_HOME}/jre/lib" -Djava.rmi.server.codebase=.
 MODULES := $(wildcard *.java)
 
 default: $(MODULES:.java=.class)
