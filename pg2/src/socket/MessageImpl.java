@@ -34,15 +34,15 @@ public class MessageImpl implements Message, Serializable {
      * setter for DigitCount and CharacterCount
      */
     public void setCounts(){
-        int c = 0;
+        int dc= 0;
         for (int i=0; i< this.input.length(); i++){
             char c = this.input.charAt(i);
             if(Character.isDigit(c)){
-                c++;
+		dc++;
             }
         }
 
-        this.DigitCount = c;
+        this.DigitCount = dc;
         this.CharacterCount = this.input.length();
     }
 
