@@ -32,6 +32,7 @@ The version requirement may not be strict as the version given above. But only v
 	Type any format of String and end with enter
  5. The Client will get the response from the Server with information of Counts of Character and Digit
 	Then the Client will exit automatically
+
 # For the RMI
 
 ## Compile
