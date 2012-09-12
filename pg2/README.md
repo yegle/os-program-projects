@@ -37,7 +37,19 @@ The version requirement may not be strict as the version given above. But only v
 
 ## Compile
 
+ 1. Go to `src/rmi/` directory
+ 2. Run `make` without any argument. Both Server and Java will be compiled
+
 ## Test
+
+ 1. Open 2 Terminals, go to `src/rmi/` directory for both
+ 2. In one Terminal, run `rmiregistry &` to start the registry and create the remote object
+ 3. Run `java ServerImpl` to set up the Server
+ 3. In the other Terminal, run `java Client` to set up the Client
+ 4. The Client program will ask you enter the input of String
+	Type any format of String and end with enter
+ 5. The Client will get the response from the Server with information of Counts of Character and Digit
+	Then the Client will exit automatically
 
 ## Document
 

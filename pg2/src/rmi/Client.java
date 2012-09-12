@@ -29,12 +29,12 @@ public class Client {
         this.server = (Server) Naming.lookup(url);
     }
 
-    protected void process(String input){
+    protected void process(String input) throws Exception{
         this.server.setInput(input);
         this.server.setCounts();
     }
 
-    protected void printResult(){
+    protected void printResult() throws Exception{
         System.out.println("Result received: CharacterCount=" + this.server.getCharacterCount() + ", DigitCount=" + this.server.getDigitCount());
     }
 }
