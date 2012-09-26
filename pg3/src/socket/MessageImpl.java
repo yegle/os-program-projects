@@ -30,20 +30,26 @@ public class MessageImpl implements Message, Serializable {
         this.input = input;
     }
 
+
+
     /**
      * setter for DigitCount and CharacterCount
      */
     public void setCounts(){
+		long start = System.nanoTime();
         int dc= 0;
         for (int i=0; i< this.input.length(); i++){
             char c = this.input.charAt(i);
             if(Character.isDigit(c)){
-		dc++;
+				dc++;
             }
         }
 
         this.DigitCount = dc;
         this.CharacterCount = this.input.length();
+		//Thread.sleep(3000);
+		long end = System.nanoTime();
+		System.err.println("finished request " + input + " cost:"+(end-start)+"ns");
     }
 
     /**
