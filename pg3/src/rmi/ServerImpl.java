@@ -78,7 +78,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 
         this.DigitCount = ret;
         this.CharacterCount = this.Input.length();
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
     }
 
     /**
