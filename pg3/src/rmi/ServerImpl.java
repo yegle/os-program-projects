@@ -25,7 +25,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
      * internal variable to make ServerImpl single-threaded
      */
     private Object lock;
-
+    
     /**
      * empty constructor
      */
@@ -50,7 +50,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     /**
      * wrapper function 
      */
-    public void setCounts() throws Exception {
+    public void setCounts(String s) throws Exception {
+        long start = System.nanoTime();
         if(this.SingleThread){
             synchronized(this.lock){
                 this._setCounts();
@@ -59,6 +60,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         else{
             this._setCounts();
         }
+        long end = System.nanoTime();
+        System.err.println("finished request " + s + " cost: " + (end - start) + " ms");
     }
 
     /**
@@ -75,6 +78,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 
         this.DigitCount = ret;
         this.CharacterCount = this.Input.length();
+        Thread.sleep(3000);
     }
 
     /**
@@ -100,6 +104,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
      */
 
     public void setSingleThread(boolean b) throws Exception {
+        System.err.println("setSingleThread");
         this.lock = new Object();
         this.SingleThread = b;
         return;
@@ -112,7 +117,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         try {
             ServerImpl s = new ServerImpl();
             
-            if(args.length == 2 && args[1] == "single"){
+            if(args.length == 1 && args[0].equals("single") ){
+                System.err.println("Running in single-thread mode");
                 s.setSingleThread(true);
             }
             Registry registry = LocateRegistry.getRegistry(1988);

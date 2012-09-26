@@ -65,7 +65,7 @@ public class Client {
      */
     protected void process(String input) throws Exception{
         this.server.setInput(input);
-        this.server.setCounts();
+        this.server.setCounts(Thread.currentThread().getName());
     }
 
     /**

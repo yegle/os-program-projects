@@ -1,13 +1,12 @@
 public class ClientRunnable implements Runnable {
     protected Client c;
     protected String text;
-    protected int index;
 
     public void run() {
         try{
             c = new Client("rmi://127.0.0.1:1988/RMI");
             c.connect();
-            c.debug(""+this.index);
+            c.debug("Client "+ Thread.currentThread().getName() + " connected");
             c.process(this.text);
             c.printResult();
         } catch(Exception e){
@@ -15,17 +14,16 @@ public class ClientRunnable implements Runnable {
         }
     }
     
-    public ClientRunnable(String text, int index){
+    public ClientRunnable(String text){
         this.text = text;
-        this.index = index;
     }
 
     public static void main(String[] args){
         try{
             for(int i=1;i<=10;i++){
-                ClientRunnable c = new ClientRunnable("test", i);
+                ClientRunnable c = new ClientRunnable("test");
                 Thread t = new Thread(c);
-                (new Thread(c)).start();
+                (new Thread(c, ""+i)).start();
             }
         } catch(Exception e){
             System.err.println( "Exception catched, message: " + e.toString());
