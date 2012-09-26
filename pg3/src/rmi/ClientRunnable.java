@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class ClientRunnable implements Runnable {
     protected Client c;
     protected String text;
@@ -20,8 +22,14 @@ public class ClientRunnable implements Runnable {
 
     public static void main(String[] args){
         try{
+            InputStream in = new FileInputStream(new File("ServerImpl.java"));
+            String text = "";
+            byte[] buf = new byte[1024];
+            while(in.read(buf) > 0){
+                text += new String(buf);
+            }
             for(int i=1;i<=10;i++){
-                ClientRunnable c = new ClientRunnable("test");
+                ClientRunnable c = new ClientRunnable(text);
                 Thread t = new Thread(c);
                 (new Thread(c, ""+i)).start();
             }
