@@ -69,6 +69,15 @@ public class Client {
     }
 
     /**
+     * call remote debug function
+     *
+     * @param s the String to be outputed on server side
+     */
+    protected void debug(String s) throws Exception{
+        this.server.debug(s);
+    }
+
+    /**
      * printResult function
 	 *
 	 * Receive count message from server and print the result out

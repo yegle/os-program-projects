@@ -32,6 +32,13 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public ServerImpl() throws Exception{}
 
     /**
+     * debug function, to stderr
+     */
+    public void debug(String s) throws Exception{
+        System.err.println(s);
+    }
+
+    /**
      * function used to save user's input
      *
      * @param input String, User's input
