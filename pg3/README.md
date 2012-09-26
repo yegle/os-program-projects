@@ -1,11 +1,11 @@
-# HW #2 for Operating System
+# HW #3 for Operating System
 
 by [Yuchen Ying](yegle@uga.edu) and [Yue Yin](yinyue@uga.edu).
 
 ## Program Introduction & Directory Structure
 
-We wrote two client-server applications using JAVA sockets and RMI.
-
+In HW #2, we wrote two client-server applications using JAVA sockets and RMI.
+This time we changed them by adding threads.
 
 ## System Requirement
 
@@ -26,8 +26,13 @@ The version requirement may not be strict as the version given above. But only v
 ## Test
 
  1. Open 2 Terminals, go to `src/socket/` directory for both
- 2. In one Terminal, run `java Server` to set up the Server
- 3. In the other Terminal, run `java Client` to set up the Client
+ 2. In one Terminal, regarded as server
+		run `java Server` to set up the Multithread Server
+		run `java ServerSingle` to set up the Singlethread Server
+		run `java ServerPool` to ser up the Server with thread pool
+ 3. In the other Terminal, regarded as client 
+		run `java Client` to set up a single Client
+		run `java ClientRunnable` to set up a multithread Client(10 clients)
  4. The Client program will ask you enter the input of String
 	Type any format of String and end with enter
  5. The Client will get the response from the Server with information of Counts of Character and Digit
@@ -44,8 +49,12 @@ The version requirement may not be strict as the version given above. But only v
 
  1. Open 2 Terminals, go to `src/rmi/` directory for both
  2. In one Terminal, run `rmiregistry &` to start the registry and create the remote object
- 3. Run `java ServerImpl` to set up the Server
- 3. In the other Terminal, run `java Client` to set up the Client
+ 3. Also in this Terminal, regarded as Server
+		Run `java ServerImpl` to set up the Server
+		Run `java ServerImpl simple` to set up the singlethread Server
+ 3. In the other Terminal, regarded as Client
+		Run `java Client` to set up the Client
+		Run `java ClientRunnable` to set up the multithread Client(10 clients)
  4. The Client program will ask you enter the input of String
 	Type any format of String and end with enter
  5. The Client will get the response from the Server with information of Counts of Character and Digit
