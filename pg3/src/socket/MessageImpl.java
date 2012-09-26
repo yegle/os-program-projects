@@ -21,6 +21,8 @@ public class MessageImpl implements Message, Serializable {
      */
     protected int DigitCount;
 
+	//private Object lock;
+
     /**
      * constructor
      *
@@ -52,6 +54,25 @@ public class MessageImpl implements Message, Serializable {
 		System.err.println("finished request " + input + " cost:"+(end-start)+"ns");
     }
 
+    public void singlesetCounts(Object lock){
+		//lock = new Object();
+		long start = System.nanoTime();
+			synchronized(lock){
+				int sdc= 0;
+				for (int i=0; i< this.input.length(); i++){
+				    char c = this.input.charAt(i);
+				    if(Character.isDigit(c)){
+						sdc++;
+				    }
+				}
+        
+				this.DigitCount = sdc;
+				this.CharacterCount = this.input.length();
+				//Thread.sleep(3000);
+			}
+		long end = System.nanoTime();
+		System.err.println("finished request " + input + " cost:"+(end-start)+"ns");
+    }
     /**
      * getter for CharacterCount
      *

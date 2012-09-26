@@ -5,12 +5,14 @@ import java.io.*;
  * Serverside class
  *
  */
-public class Server
+public class ServerPool
 {
     /**
      * internal variable holds the ServerSocket
      */
     protected ServerSocket sock;
+
+	private static int PoolNum;
 
     /**
      *
@@ -21,21 +23,22 @@ public class Server
      */
 	public static void main(String[] args){
 		try{
-            Server s = new Server();
+            ServerPool s = new ServerPool();
+			s.start(4328);
+            
+			while(true){
+				for(int i=0; i<PoolNum; i++){
+					
+					Socket clientSocket = s.sock.accept();	
+					InetAddress address = clientSocket.getInetAddress();
+					System.err.println("Connect from [" + address.getHostAddress() + "]");
 
-            s.start(4328);
+					ClientConnection connection = new ClientConnection(clientSocket);
 
-            while(true){
+					Thread connectiont = new Thread(connection);
 
-				Socket clientSocket = s.sock.accept();	
-				InetAddress address = clientSocket.getInetAddress();
-				System.err.println("Connect from [" + address.getHostAddress() + "]");
-
-				ClientConnection connection = new ClientConnection(clientSocket);
-
-				Thread connectiont = new Thread(connection);
-
-				connectiont.start();
+					connectiont.start();
+				}
             }
 		} catch(Exception e){
             System.err.println( "Exception catched, message: " + e.toString());
@@ -51,7 +54,6 @@ public class Server
     protected void start(int port) throws Exception {
         this.sock = new ServerSocket(port);
     }
-
 
 }
 

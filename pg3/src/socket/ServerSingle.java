@@ -5,12 +5,13 @@ import java.io.*;
  * Serverside class
  *
  */
-public class Server
+public class ServerSingle
 {
     /**
      * internal variable holds the ServerSocket
      */
     protected ServerSocket sock;
+
 
     /**
      *
@@ -21,7 +22,7 @@ public class Server
      */
 	public static void main(String[] args){
 		try{
-            Server s = new Server();
+            ServerSingle s = new ServerSingle();
 
             s.start(4328);
 
@@ -53,6 +54,7 @@ public class Server
     }
 
 
+
 }
 
 /**
@@ -68,6 +70,8 @@ class ClientConnection implements Runnable{
      */
     protected ObjectOutputStream sendTo;
 
+	static public Object lock;	
+
     /**
      * constructor of ClientConnection class
      *
@@ -76,14 +80,14 @@ class ClientConnection implements Runnable{
     public ClientConnection(Socket s) throws Exception {
         this.rcvFrom = new ObjectInputStream(s.getInputStream());
         this.sendTo = new ObjectOutputStream(s.getOutputStream());
+		lock = new Object();
     }
 
 	public void run()
 	{
 		try{
 		MessageImpl msg = (MessageImpl) this.rcvFrom.readObject();
-
-		msg.setCounts();
+		msg.singlesetCounts(lock);
 		this.sendTo.writeObject(msg);
 		}
 		catch (Exception e){
