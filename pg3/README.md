@@ -38,7 +38,7 @@ The version requirement may not be strict as the version given above. But only v
 ## Compile
 
  1. Go to `src/rmi/` directory
- 2. Run `make` without any argument. Both Server and Java will be compiled
+ 2. Run `make` without any argument. Both Server and Client will be compiled
 
 ## Test
 
