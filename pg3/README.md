@@ -27,12 +27,12 @@ The version requirement may not be strict as the version given above. But only v
 
  1. Open 2 Terminals, go to `src/socket/` directory for both
  2. In one Terminal, regarded as server
-		run `java Server` to set up the Multithread Server
-		run `java ServerSingle` to set up the Singlethread Server
-		run `java ServerPool` to ser up the Server with thread pool
+		(a).run `java Server` to set up the Multithread Server
+		(b).run `java ServerSingle` to set up the Singlethread Server
+		(c).run `java ServerPool` to ser up the Server with thread pool
  3. In the other Terminal, regarded as client 
-		run `java Client` to set up a single Client
-		run `java ClientRunnable` to set up a multithread Client(10 clients)
+		(a).run `java Client` to set up a single Client
+		(b).run `java ClientRunnable` to set up a multithread Client(10 clients)
  4. The Client program will ask you enter the input of String
 	Type any format of String and end with enter
  5. The Client will get the response from the Server with information of Counts of Character and Digit
@@ -50,11 +50,11 @@ The version requirement may not be strict as the version given above. But only v
  1. Open 2 Terminals, go to `src/rmi/` directory for both
  2. In one Terminal, run `rmiregistry &` to start the registry and create the remote object
  3. Also in this Terminal, regarded as Server
-		Run `java ServerImpl` to set up the Server
-		Run `java ServerImpl simple` to set up the singlethread Server
+		(a).Run `java ServerImpl` to set up the Server
+		(b).Run `java ServerImpl simple` to set up the singlethread Server
  3. In the other Terminal, regarded as Client
-		Run `java Client` to set up the Client
-		Run `java ClientRunnable` to set up the multithread Client(10 clients)
+		(a).Run `java Client` to set up the Client
+		(b).Run `java ClientRunnable` to set up the multithread Client(10 clients)
  4. The Client program will ask you enter the input of String
 	Type any format of String and end with enter
  5. The Client will get the response from the Server with information of Counts of Character and Digit
