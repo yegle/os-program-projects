@@ -84,17 +84,6 @@ public class Dot{
             Global.a[i] = (i+1)%100;
             Global.b[i] = (i+1)%100;
         }
-
-    }
-
-    public static void readFileIntoArray(String file, int[] array) throws FileNotFoundException{
-        Scanner sc = new Scanner(new File(file));
-        int i = 0;
-        int line;
-        while(sc.hasNextInt()){
-            array[i] = sc.nextInt();
-            i++;
-        }
     }
 
     protected void start(){
