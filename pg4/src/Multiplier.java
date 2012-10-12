@@ -1,5 +1,6 @@
 import java.util.*;
 import java.lang.*;
+import java.util.concurrent.Semaphore;
 
 class Multiplier implements Runnable{
     private int start, end, threadId;
@@ -20,12 +21,14 @@ class Multiplier implements Runnable{
 
     public void run(){
         try{
+            Global.permitToEnterPhase2[this.threadId].acquire();
             Formatter fmt = new Formatter(new StringBuilder());
             System.err.println(fmt.format("threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
             for(int i=this.start; i<=this.end;i++){
                 Global.c[i] = Global.a[i] * Global.b[i];
             }
+            Global.permitToEnterPhase2[this.threadId].release();
         }catch(Exception e){
             e.printStackTrace();
         }
