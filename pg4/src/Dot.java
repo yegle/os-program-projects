@@ -21,7 +21,7 @@ public class Dot{
 
             dot.start();
         } catch(Exception e){
-            System.err.println( "Exception catched, message: " + e.toString());
+            e.printStackTrace();
             System.exit(0);
         }
         ////read data from files and assign values to a,b
@@ -91,13 +91,19 @@ public class Dot{
         Thread[] mul = new Thread[this.threadCount];
 
         //start each thread
+        Global.permitToEnterPhase2 = new Semaphore[this.threadCount];
         for(int i=0; i<this.threadCount; i++){
             Global.permitToEnterPhase2[i] = new Semaphore(1);
             mul[i] = new Thread(new Multiplier(i, this.threadCount));
             mul[i].start();
         }
 
+        Thread[] sum = new Thread[this.threadCount];
         Global.permitToEnterPhase3 = new Semaphore(this.threadCount);
+        for(int i=0;i<this.threadCount;i++){
+            sum[i] = new Thread(new Adder(i, this.threadCount));
+            sum[i].start();
+        }
     }
 }
 // vim: set ts=4 sw=4 tw=0 :

@@ -21,13 +21,15 @@ class Multiplier implements Runnable{
 
     public void run(){
         try{
+            // acquire lock
             Global.permitToEnterPhase2[this.threadId].acquire();
             Formatter fmt = new Formatter(new StringBuilder());
-            System.err.println(fmt.format("threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
+            System.err.println(fmt.format("Mutiplier:threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
             for(int i=this.start; i<=this.end;i++){
                 Global.c[i] = Global.a[i] * Global.b[i];
             }
+            // release lock
             Global.permitToEnterPhase2[this.threadId].release();
         }catch(Exception e){
             e.printStackTrace();
