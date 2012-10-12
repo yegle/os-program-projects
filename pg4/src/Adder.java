@@ -17,12 +17,12 @@ class Adder implements Runnable{
     }
 
     public void run(){
-        try{
+		try{
 			Global.permitToEnterPhase2[this.threadId].acquire();
 			Global.permitToEnterPhase3[this.threadId].acquire();
 
 			Formatter fmt = new Formatter(new StringBuilder());
-            System.err.println(fmt.format("threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
+			System.err.println(fmt.format("threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
 			Global.sum[threadID]=0;			
 
