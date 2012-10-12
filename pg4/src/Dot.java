@@ -12,7 +12,6 @@ public class Dot{
 
 
 	public static void main(String[] args){
-		
 		//read data from files and assign values to a,b
 		for(int j=0;j<size;j++){
 			a[j]=j;
@@ -55,11 +54,11 @@ public class Dot{
 	static class Multiplier implements Runnable{
 		private int i;
 		Multiplier(int id){
-			i=id;		
+			i=id;
 		}
 
 		public void run(){
-			try{		
+			try{
 				c[i]=a[i]*b[i];
 				System.err.println("c[" + i + "]=" + c[i]);
 			}catch(Exception e){
@@ -72,11 +71,11 @@ public class Dot{
 		private int i;
 
 		adder(int id){
-			i=id;		
+			i=id;
 		}
 
 		public void run(){
-			try{		
+			try{
 				sum+=c[i];
 			}catch(Exception e){
 				e.printStackTrace();
