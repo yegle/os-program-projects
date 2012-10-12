@@ -5,4 +5,5 @@ public class Global{
 	public static int[] b = new int[size];
 	public static int[] c = new int[size];
 
+	public static int[] sum = new int[10];
 }
