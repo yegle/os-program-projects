@@ -10,12 +10,30 @@ public class Dot{
         this.threadCount = threadCount;
     }
 
+    public static void help(String name){
+        System.out.println("Usage: \njava "+ name + " NUMBER_OF_THREADS");
+        System.exit(0);
+    }
+
     public static void main(String[] args){
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        StackTraceElement main = stack[stack.length-1];
+        String programName = main.getClassName();
+
+        if(args.length!=1){
+            Dot.help(programName);
+        }
+
+        int threadCount;
         try{
-            Dot dot = new Dot(10);
+            threadCount = Integer.parseInt(args[0]);
+            Dot dot = new Dot(threadCount);
             dot.init();
 
             dot.start();
+        } catch(NumberFormatException e){
+            e.printStackTrace();
+            Dot.help(programName);
         } catch(Exception e){
             e.printStackTrace();
             System.exit(0);
@@ -50,9 +68,9 @@ public class Dot{
             mul[i].start();
         }
 
-        System.err.println("Waiting for others to phase2");
+        //System.err.println("Waiting for others to phase2");
         Global.EnteringPhase2.waitForOthers();
-        System.err.println("Entering phase2");
+        //System.err.println("Entering phase2");
 
         for(int i=0;i<this.threadCount;i++){
             sum[i] = new Thread(new Adder(i, this.threadCount));
@@ -60,9 +78,9 @@ public class Dot{
             sum[i].start();
         }
 
-        System.err.println("Waiting for others to phase3");
+        //System.err.println("Waiting for others to phase3");
         Global.EnteringPhase3.waitForOthers();
-        System.err.println("Entering phase3");
+        //System.err.println("Entering phase3");
         long result = 0;
         for(int i=0;i<this.threadCount;i++){
             result += Global.sum[i];

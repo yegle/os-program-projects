@@ -20,7 +20,7 @@ class Adder implements Runnable{
 		try{
 
 			Formatter fmt = new Formatter(new StringBuilder());
-			System.err.println(fmt.format("Adder: threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
+			//System.err.println(fmt.format("Adder: threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
 			for(int i=this.start; i<=this.end; i++){
             	Global.sum[this.threadId] += Global.c[i];

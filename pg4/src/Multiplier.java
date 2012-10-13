@@ -22,7 +22,7 @@ class Multiplier implements Runnable{
     public void run(){
         try{
             Formatter fmt = new Formatter(new StringBuilder());
-            System.err.println(fmt.format("Mutiplier:threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
+            //System.err.println(fmt.format("Mutiplier:threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
 
             for(int i=this.start; i<=this.end;i++){
