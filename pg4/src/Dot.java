@@ -56,7 +56,7 @@ public class Dot{
         }
 
         Global.EnteringPhase3.waitForOthers();
-        int result = 0;
+        long result = 0;
         for(int i=0;i<this.threadCount;i++){
             System.out.println(Global.sum[i]);
             result += Global.sum[i];
