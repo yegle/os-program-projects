@@ -2,7 +2,7 @@ import java.util.concurrent.Semaphore;
 
 class BarrierImpl implements Barrier {
     protected int threadCount;
-    protected Semaphore s;
+    public Semaphore s;
 
     public BarrierImpl(int threadCount){
         this.threadCount = threadCount;
@@ -10,10 +10,22 @@ class BarrierImpl implements Barrier {
     }
 
     public void waitForOthers(){
-        this.s.acquire(this.threadCount);
+        try{
+            this.s.acquire(this.threadCount);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     public void freeAll(){
         this.s.release(this.s.availablePermits());
+    }
+
+    public void acquire() throws InterruptedException{
+        this.s.acquire();
+    }
+    public void release() throws InterruptedException{
+        this.s.release();
     }
 }

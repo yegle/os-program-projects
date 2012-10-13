@@ -4,10 +4,6 @@ import java.io.*;
 import java.util.concurrent.Semaphore;
 
 public class Dot{
-    //private static int[] sum = new int[10];
-    //
-    //
-
     protected int threadCount;
 
     public Dot(int threadCount){
@@ -24,86 +20,48 @@ public class Dot{
             e.printStackTrace();
             System.exit(0);
         }
-        ////read data from files and assign values to a,b
-        //for(int j=0;j<Global.size;j++){
-        //    Global.a[j]=j;
-        //    Global.b[j]=j;
-        //}
-
-        ////create thread to multiply
-        //int tsize = 10;
-        //Thread[] mul = new Thread[tsize];
-
-        //for(int j=0;j<tsize;j++){
-        //    //System.err.println(j);
-        //    mul[j]=new Thread(new Multiplier(j));
-
-        //}
-
-        //for(int j=0;j<tsize;j++){
-        //    System.err.println(j);
-        //    mul[j].start();
-        //}
-
-        ////create thread to add
-        ///*Thread[] add = new Thread[tsize];
-
-        //  for(int j=0;j<tsize;j++){
-        ////System.err.println(j);
-        //add[j]=new Thread(new Multiplier(j));
-
-        //  }
-
-        //  for(int j=0;j<tsize;j++){
-        //  System.err.println(j);
-        //  add[j].start();
-        //  }*/
-
     }
 
-
-
-
-    /*static class adder implements Runnable{
-      private int i;
-
-      adder(int id){
-      i=id;
-      }
-
-      public void run(){
-      try{
-      sum+=c[i];
-      }catch(Exception e){
-      e.printStackTrace();
-      }
-      }
-      }*/
-    void init() throws FileNotFoundException{
+    void init(){
         for(int i=0;i<9000000;i++){
             Global.a[i] = (i+1)%100;
             Global.b[i] = (i+1)%100;
         }
+        Global.sum = new int[this.threadCount];
+        for(int i=0;i<this.threadCount;i++){
+            Global.sum[i] = 0;
+        }
     }
 
-    protected void start(){
-        //create thread to multiply
+    protected void start() throws InterruptedException{
+        //create threads
         Thread[] mul = new Thread[this.threadCount];
+        Thread[] sum = new Thread[this.threadCount];
+
+        //create Barriers
+        Global.EnteringPhase2 = new BarrierImpl(this.threadCount);
+        Global.EnteringPhase3 = new BarrierImpl(this.threadCount);
 
         //start each thread
-        Global.permitToEnterPhase2 = new Semaphore[this.threadCount];
         for(int i=0; i<this.threadCount; i++){
-            Global.permitToEnterPhase2[i] = new Semaphore(1);
             mul[i] = new Thread(new Multiplier(i, this.threadCount));
             mul[i].start();
         }
 
-        Thread[] sum = new Thread[this.threadCount];
-        Global.permitToEnterPhase3 = new Semaphore(this.threadCount);
+        Global.EnteringPhase2.waitForOthers();
+
         for(int i=0;i<this.threadCount;i++){
             sum[i] = new Thread(new Adder(i, this.threadCount));
             sum[i].start();
         }
+
+        Global.EnteringPhase3.waitForOthers();
+        int result = 0;
+        for(int i=0;i<this.threadCount;i++){
+            System.out.println(Global.sum[i]);
+            result += Global.sum[i];
+        }
+        System.out.println(result);
     }
 }
 // vim: set ts=4 sw=4 tw=0 :
