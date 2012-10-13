@@ -6,7 +6,7 @@ public class Global{
     public static int[] a = new int[size];
     public static int[] b = new int[size];
     public static int[] c = new int[size];
-    public static int[] sum;
+    public static long[] sum;
     public static BarrierImpl EnteringPhase2;
     public static BarrierImpl EnteringPhase3;
 }

@@ -27,7 +27,7 @@ public class Dot{
             Global.a[i] = (i+1)%100;
             Global.b[i] = (i+1)%100;
         }
-        Global.sum = new int[this.threadCount];
+        Global.sum = new long[this.threadCount];
         for(int i=0;i<this.threadCount;i++){
             Global.sum[i] = 0;
         }
