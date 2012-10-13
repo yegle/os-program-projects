@@ -12,8 +12,7 @@ class Multiplier implements Runnable{
         this.start = threadId * per;
         this.end = this.start+per-1;
 
-        // The last thread may have lesser workload
-        if(this.end > Global.size){
+        if(Global.size - this.end < per){
             this.end = Global.size-1;
         }
 

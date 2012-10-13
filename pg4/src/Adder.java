@@ -11,9 +11,9 @@ class Adder implements Runnable{
 		this.start = threadId * per;
 		this.end = this.start+per-1;
 
-		if(this.end > Global.size){
-			this.end = Global.size-1;
-		}
+        if(Global.size - this.end < per){
+            this.end = Global.size-1;
+        }
     }
 
     public void run(){
