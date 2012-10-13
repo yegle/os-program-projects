@@ -3,8 +3,17 @@ import java.lang.*;
 import java.util.concurrent.Semaphore;
 
 class Multiplier implements Runnable{
+    /**
+	 * internal variable used to represent the range values
+	 */
     private int start, end, threadId;
 
+	/**
+	 * function of Adder
+	 *
+	 * @param threadId
+	 * @param threadCount
+	 */
     public Multiplier(int threadId, int threadCount){
         this.threadId = threadId;
 
@@ -18,6 +27,10 @@ class Multiplier implements Runnable{
 
     }
 
+	/**
+	 * function of run
+	 *
+	 */
     public void run(){
         try{
             Formatter fmt = new Formatter(new StringBuilder());

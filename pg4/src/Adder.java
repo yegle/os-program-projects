@@ -2,8 +2,21 @@ import java.util.*;
 import java.lang.*;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Main server class
+ */
 class Adder implements Runnable{
+    /**
+	 * internal variable used to represent the range values
+	 */
     private int start, end, threadId;
+
+	/**
+	 * function of Adder
+	 *
+	 * @param threadId
+	 * @param threadCount
+	 */
     public Adder(int threadId, int threadCount){
         this.threadId = threadId;
 
@@ -16,6 +29,10 @@ class Adder implements Runnable{
         }
     }
 
+	/**
+	 * function of run
+	 *
+	 */
     public void run(){
         try{
 
