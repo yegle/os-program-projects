@@ -1,5 +1,9 @@
 import java.util.concurrent.Semaphore;
 
+/**
+ * class Global
+ */
+
 public class Global{
     public static int size=9000000;
     public static int totalsum=0;

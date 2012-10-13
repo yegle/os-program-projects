@@ -4,17 +4,34 @@ import java.io.*;
 import java.util.concurrent.Semaphore;
 
 public class Dot{
+
+    /**
+	 * variable of number of thread
+	 */
     protected int threadCount;
 
+    /**
+	 * function of Dot
+	 * 
+	 * @param threadCount	number of thread
+	 */
     public Dot(int threadCount){
         this.threadCount = threadCount;
     }
 
+    /**
+	 * function of help
+	 * 
+	 * @param name	String
+	 */
     public static void help(String name){
         System.out.println("Usage: \njava "+ name + " NUMBER_OF_THREADS");
         System.exit(0);
     }
 
+    /**
+	 * function of main
+	 */
     public static void main(String[] args){
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         StackTraceElement main = stack[stack.length-1];
@@ -40,6 +57,9 @@ public class Dot{
         }
     }
 
+    /**
+	 * function of init
+	 */
     void init(){
         for(int i=0;i<9000000;i++){
             Global.a[i] = (i+1)%100;
@@ -51,6 +71,9 @@ public class Dot{
         }
     }
 
+    /**
+	 * function of start
+	 */
     protected void start() throws InterruptedException{
         //create threads
         Thread[] mul = new Thread[this.threadCount];
