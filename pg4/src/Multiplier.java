@@ -24,8 +24,6 @@ class Multiplier implements Runnable{
             Formatter fmt = new Formatter(new StringBuilder());
             System.err.println(fmt.format("Mutiplier:threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 
-            // acquire lock
-            Global.EnteringPhase2.acquire();
 
             for(int i=this.start; i<=this.end;i++){
                 Global.c[i] = Global.a[i] * Global.b[i];

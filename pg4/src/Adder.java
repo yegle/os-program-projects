@@ -19,8 +19,6 @@ class Adder implements Runnable{
     public void run(){
 		try{
 
-			Global.EnteringPhase3.acquire();
-
 			Formatter fmt = new Formatter(new StringBuilder());
 			System.err.println(fmt.format("Adder: threadId=%s, range=%s-%s", this.threadId, this.start, this.end));
 

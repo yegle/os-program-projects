@@ -4,7 +4,7 @@ class BarrierImpl implements Barrier {
     protected int threadCount;
     public Semaphore s;
 
-    public BarrierImpl(int threadCount){
+    public BarrierImpl(int threadCount) throws InterruptedException{
         this.threadCount = threadCount;
         this.s = new Semaphore(threadCount);
     }
@@ -19,7 +19,7 @@ class BarrierImpl implements Barrier {
     }
 
     public void freeAll(){
-        this.s.release(this.s.availablePermits());
+        this.s.release(this.s.availablePermits()-1);
     }
 
     public void acquire() throws InterruptedException{

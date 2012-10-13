@@ -45,20 +45,26 @@ public class Dot{
         //start each thread
         for(int i=0; i<this.threadCount; i++){
             mul[i] = new Thread(new Multiplier(i, this.threadCount));
+            // acquire lock
+            Global.EnteringPhase2.acquire();
             mul[i].start();
         }
 
+        System.err.println("Waiting for others to phase2");
         Global.EnteringPhase2.waitForOthers();
+        System.err.println("Entering phase2");
 
         for(int i=0;i<this.threadCount;i++){
             sum[i] = new Thread(new Adder(i, this.threadCount));
+			Global.EnteringPhase3.acquire();
             sum[i].start();
         }
 
+        System.err.println("Waiting for others to phase3");
         Global.EnteringPhase3.waitForOthers();
+        System.err.println("Entering phase3");
         long result = 0;
         for(int i=0;i<this.threadCount;i++){
-            System.out.println(Global.sum[i]);
             result += Global.sum[i];
         }
         System.out.println(result);
