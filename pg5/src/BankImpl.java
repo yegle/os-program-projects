@@ -1,10 +1,14 @@
 class BankImpl implements Bank{
-	public static int numberOfCustimers;
-	public static int numberOfResources;
+	private public static int numberOfCustomers;
+	private static int numberOfResources;
 
-	public static int[] available;
-	public static int[][] maximum;
-	public static int[][] allocation;
+	private static int[] available;
+	private static int[][] maximum;
+	private static int[][] allocation;
 
-	public static int[][] need;
+	private static int[][] need;
+
+	public BankImpl(int[] resources){
+		
+	}
 }
