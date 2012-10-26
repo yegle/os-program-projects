@@ -92,6 +92,15 @@ class BankImpl implements Bank{
 
 	public boolean requestResources(int customerNumber, int[] request){
         int customerIndex = (Integer)this.customers.get(customerNumber);
+        try{
+            for(int i=0;i<this.resourceNumber; i++){
+                assert this.available[i] > request[i];
+                assert request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i];
+            }
+        }
+        catch(AssertionError e){
+            return false;
+        }
         if(!this.isSafe(customerNumber, request)){
             return false;
         }
