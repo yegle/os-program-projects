@@ -44,7 +44,7 @@ public class TestHarness
 		// create the bank
 		Bank theBank = new BankImpl(initialResources);
           int[] maxDemand = new int[numOfResources];
-                
+
 		// read initial values for maximum array 
 		String line;
 		try {
@@ -53,10 +53,8 @@ public class TestHarness
 			int threadNum = 0;
                int resourceNum = 0;
 
-               for (int i = 0; i < Customer.COUNT; i++) {
-               	line = inFile.readLine();
+                   while((line = inFile.readLine()) != null){
                	StringTokenizer tokens = new StringTokenizer(line,",");
-                            
                	while (tokens.hasMoreTokens()) {
                		int amt = Integer.parseInt(tokens.nextToken().trim());
                		maxDemand[resourceNum++] = amt;
