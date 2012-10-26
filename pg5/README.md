@@ -24,7 +24,7 @@ The version requirement may not be strict as the version given above. But only v
 
  1. Compile first
  2. Run `java TestHarness infile.txt a b c`
-	a, b, c are the values for initial available array
+	a, b, c are the values for initial available array.
 
 ## Document
 
