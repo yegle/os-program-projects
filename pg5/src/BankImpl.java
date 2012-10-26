@@ -2,11 +2,11 @@ import java.util.Hashtable;
 import java.util.Arrays;
 
 class BankImpl implements Bank{
-	private static int numberOfCustomers = 0;
-	private static int numberOfResources;
+	private static int customerNumber;
+	private static int resourceNumber;
 
 	private static int[] available;
-	private static int[][] max;
+	private static int[][] maximum;
 	private static int[][] allocation;
 
 	private static int[][] need;
@@ -14,33 +14,34 @@ class BankImpl implements Bank{
     Hashtable customers = new Hashtable();
 
 	public BankImpl(int[] resources){
-		this.numberOfResources = resources.length;
+		this.resourceNumber = resources.length;
 
-		this.available = new int[numberOfResources];
-		System.arraycopy(resources,0,available,0,numberOfResources);
+		this.available = new int[resourceNumber];
+		System.arraycopy(resources,0,available,0,resourceNumber);
+        this.customerNumber = 0;
 	}
 
 	public void addCustomer(int customerNumber, int[] maximumDemand){
-        assert maximumDemand.length == this.numberOfResources;
+        assert maximumDemand.length == this.resourceNumber;
         assert this.customers.containsKey(customerNumber) == false;
 
-        if(this.numberOfCustomers == 0){
+        if(this.customerNumber == 0){
             //initialize arrays
-            this.max = new int[1][this.numberOfResources];
-            this.allocation = new int[1][this.numberOfResources];
-            this.need = new int[1][this.numberOfResources];
+            this.maximum = new int[1][this.resourceNumber];
+            this.allocation = new int[1][this.resourceNumber];
+            this.need = new int[1][this.resourceNumber];
 
-            this.max[0] = maximumDemand;
+            this.maximum[0] = maximumDemand;
         }
         else{
             //increase current array size
-            this.max = Arrays.copyOf(this.max, this.max.length+1);
+            this.maximum = Arrays.copyOf(this.maximum, this.maximum.length+1);
             this.allocation = Arrays.copyOf(this.allocation, this.allocation.length +1);
             this.need = Arrays.copyOf(this.need, this.need.length +1);
 
-            this.max[this.max.length -1] = maximumDemand;
+            this.maximum[this.maximum.length -1] = maximumDemand;
         }
-        this.numberOfCustomers ++;
+        this.customerNumber ++;
 	}
 
 	public void getState(){
@@ -57,8 +58,8 @@ class BankImpl implements Bank{
 
 		System.out.println("Maximum:");
         System.out.println("[");
-        for(int i=0; i<this.max.length; i++){
-            System.out.println(this.combine(this.max[i], " "));
+        for(int i=0; i<this.maximum.length; i++){
+            System.out.println(this.combine(this.maximum[i], " "));
         }
         System.out.println("]");
 
@@ -74,7 +75,13 @@ class BankImpl implements Bank{
 	}
 
 	public void releaseResources(int customerNumber, int[] release){
+		System.out.println("Customer: "+ customerNumber +"releasing");
 
+		for(int i=0; i<resourceNumber;i++){
+			available[i] +=release[i];
+			allocation[customerNumber][i] -=release[i];
+			need[customerNumber][i] = maximum[customerNumber][i] + allocation[customerNumber][i];
+		}
 	}
 
     public String combine(int[] s, String glue){
