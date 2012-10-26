@@ -70,7 +70,9 @@ class BankImpl implements Bank{
 	}
 
 	public boolean requestResources(int customerNumber, int[] request){
-        return true;
+        assert this.customers.containsKey(customerNumber);
+
+        int customerIndex = (Integer)this.customers.get(customerNumber);
 	}
 
 	public void releaseResources(int customerNumber, int[] release){
@@ -103,6 +105,5 @@ class BankImpl implements Bank{
         Bank bank = new BankImpl(available);
         int[] maximumDemand = {1,2,3};
         bank.addCustomer(0, maximumDemand);
-        bank.getState();
     }
 }
