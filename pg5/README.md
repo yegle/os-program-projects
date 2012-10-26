@@ -25,6 +25,7 @@ The version requirement may not be strict as the version given above. But only v
  1. Compile first
  2. Run `java TestHarness infile.txt a b c`
 	a, b, c are the values for initial available array
+
 ## Document
 
 The javadoc was included in the source code. To generate the document, go to `src/` then run `make doc`. The document will be generated at `$PWD/doc`.
