@@ -71,7 +71,6 @@ class BankImpl implements Bank{
 
 	public boolean requestResources(int customerNumber, int[] request){
         int customerIndex = (Integer)this.customers.get(customerNumber);
-        System.out.println(customerIndex);
 		//if it is safe
 		for(int i=0;i<resourceNumber;i++){
 			available[i] -= request[i];
@@ -109,11 +108,51 @@ class BankImpl implements Bank{
     }
 
     protected boolean isSafe(int customerNumber, int[] request){
+        int[] availableLocal = new int[this.resourceNumber];
+        int[][] allocationLocal = new int[this.customerNumber][this.resourceNumber];
+        int[][] needLocal = new int[this.customerNumber][this.resourceNumber];
+
+        for(int i=0; i<this.available.length-1; i++){
+            availableLocal[i] = this.available[i];
+        }
+
+        matrixCopy(this.allocation, allocationLocal);
+        matrixCopy(this.need, needLocal);
+
+        int customerIndex = (Integer)this.customers.get(customerNumber);
+
+        for(int i=0; i<this.resourceNumber; i++){
+            availableLocal[i] -= request[i];
+            allocationLocal[customerIndex][i] += request[i];
+            needLocal[customerIndex][i] -= request[i];
+        }
+
+        int[] work = availableLocal;
+        boolean[] finish = new boolean[this.customerNumber];
+        for(int i=0; i< finish.length; i++){
+            finish[i] = false;
+        }
+
+        //test if it's safe
+        for(int i=0; i< finish.length; i++){
+            try{
+                for(int j=0;j<work.length;j++){
+                    assert needLocal[i][j] <= work[j];
+                    work[j] += allocationLocal[i][j];
+                }
+            }
+            catch(AssertionError e){
+                return false;
+            }
+
+            finish[i] = true;
+        }
+        return true;
     }
 
     protected int[][] matrixOp(int[][] a, int[][] b, boolean plus){
         assert a.length == b.length;
-        assert a[0].length = b[0].length;
+        assert a[0].length == b[0].length;
 
         int[][] result = new int[a.length][a[0].length];
 
@@ -128,6 +167,14 @@ class BankImpl implements Bank{
             }
         }
         return result;
+    }
+
+    protected void matrixCopy(int[][] src, int[][] dest){
+        for(int x=0; x< src.length; x++){
+            for(int y=0; y<src[0].length; y++){
+                dest[x][y] = src[x][y];
+            }
+        }
     }
 
     public static void main(String[] args){
