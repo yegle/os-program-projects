@@ -1,5 +1,6 @@
 import java.util.Hashtable;
 import java.util.Arrays;
+import java.lang.Exception;
 
 class BankImpl implements Bank{
 	private static int customerNumber;
@@ -22,8 +23,20 @@ class BankImpl implements Bank{
 	}
 
 	public void addCustomer(int customerNumber, int[] maximumDemand){
-        assert maximumDemand.length == this.resourceNumber;
-        assert this.customers.containsKey(customerNumber) == false;
+        try{
+            if(maximumDemand.length != this.resourceNumber){
+                throw new Exception("wrong resource number");
+            }
+            if(this.customers.containsKey(customerNumber)){
+                throw new Exception("this customer is already added?");
+            }
+        }
+        catch(Exception e){
+            System.err.println("Exception caught. Exit");
+            System.exit(-1);
+        }
+        //assert maximumDemand.length == this.resourceNumber;
+        //assert this.customers.containsKey(customerNumber) == false;
 
         //System.err.println(customerNumber + ", " + this.combine(maximumDemand, "|"));
 
@@ -94,11 +107,18 @@ class BankImpl implements Bank{
         int customerIndex = (Integer)this.customers.get(customerNumber);
         try{
             for(int i=0;i<this.resourceNumber; i++){
-                assert this.available[i] > request[i];
-                assert request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i];
+                if(this.available[i] < request[i]){
+                    throw new Exception();
+                }
+                if(request[i] + this.allocation[customerIndex][i] >= this.maximum[customerIndex][i]){
+                    throw new Exception();
+                }
+                //assert (this.available[i] > request[i]);
+                //assert (request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i]);
+                System.out.println((request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i]) + "");
             }
         }
-        catch(AssertionError e){
+        catch(Exception e){
             return false;
         }
         if(!this.isSafe(customerNumber, request)){
@@ -170,11 +190,15 @@ class BankImpl implements Bank{
         for(int i=0; i< finish.length; i++){
             try{
                 for(int j=0;j<work.length;j++){
-                    assert needLocal[i][j] <= work[j];
+                    if(needLocal[i][j] > work[j]){
+                        throw new Exception();
+                    }
+
+                    //assert needLocal[i][j] <= work[j];
                     work[j] += allocationLocal[i][j];
                 }
             }
-            catch(AssertionError e){
+            catch(Exception e){
                 return false;
             }
 
@@ -183,9 +207,15 @@ class BankImpl implements Bank{
         return true;
     }
 
-    protected int[][] matrixOp(int[][] a, int[][] b, boolean plus){
-        assert a.length == b.length;
-        assert a[0].length == b[0].length;
+    protected int[][] matrixOp(int[][] a, int[][] b, boolean plus) throws Exception{
+        if(a.length != b.length){
+            throw new Exception("matrix size mismatch");
+        }
+        if(a[0].length != b[0].length){
+            throw new Exception("matrix size mismatch");
+        }
+        //assert a.length == b.length;
+        //assert a[0].length == b[0].length;
 
         int[][] result = new int[a.length][a[0].length];
 
