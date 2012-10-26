@@ -77,7 +77,7 @@ class BankImpl implements Bank{
         ret.append(s[0]);
 
         for(int i=1; i<k; i++){
-            ret.append(glue).append(s[x]);
+            ret.append(glue).append(s[i]);
         }
         return ret.toString();
     }
