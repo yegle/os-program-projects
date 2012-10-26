@@ -66,4 +66,19 @@ class BankImpl implements Bank{
 	public void releaseResources(int customerNumber, int[] release){
 
 	}
+
+    public String combine(String[] s, String glue){
+        int k = s.length;
+        if(k==0){
+            return null;
+        }
+
+        StringBuilder ret = new StringBuilder();
+        ret.append(s[0]);
+
+        for(int i=1; i<k; i++){
+            ret.append(glue).append(s[x]);
+        }
+        return ret.toString();
+    }
 }
