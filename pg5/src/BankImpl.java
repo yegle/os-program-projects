@@ -41,6 +41,7 @@ class BankImpl implements Bank{
 
             this.maximum[this.maximum.length -1] = maximumDemand;
         }
+        this.customers.put(customerNumber, new Integer(this.maximum.length-1));
         this.customerNumber ++;
 	}
 
@@ -48,26 +49,24 @@ class BankImpl implements Bank{
 		System.out.println("Available:");
         System.out.println("[" + this.combine(this.available, " ") + "]");
 
-		System.out.println("Allocation:");
-        System.out.println("[");
+		System.out.println("Allocation [");
         for(int i=0; i<this.allocation.length; i++){
             System.out.println(this.combine(this.allocation[i], " "));
         }
         System.out.println("]");
 
 
-		System.out.println("Maximum:");
-        System.out.println("[");
+		System.out.println("Maximum [");
         for(int i=0; i<this.maximum.length; i++){
             System.out.println(this.combine(this.maximum[i], " "));
         }
         System.out.println("]");
 
-		System.out.println("Need:");
-        System.out.println("[");
+		System.out.println("Need [");
         for(int i=0; i<this.need.length; i++){
             System.out.println(this.combine(this.need[i], " "));
         }
+        System.out.println("]");
 	}
 
 	public boolean requestResources(int customerNumber, int[] request){
@@ -97,5 +96,13 @@ class BankImpl implements Bank{
             ret.append(glue).append(s[i]);
         }
         return ret.toString();
+    }
+
+    public static void main(String[] args){
+        int[] available = {10,5,7};
+        Bank bank = new BankImpl(available);
+        int[] maximumDemand = {1,2,3};
+        bank.addCustomer(0, maximumDemand);
+        bank.getState();
     }
 }
