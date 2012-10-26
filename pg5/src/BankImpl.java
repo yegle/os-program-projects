@@ -32,6 +32,9 @@ class BankImpl implements Bank{
             this.need = new int[1][this.resourceNumber];
 
             this.maximum[0] = maximumDemand;
+            for(int i=0;i<this.need.length;i++){
+                this.need[0][i] = 0;
+            }
         }
         else{
             //increase current array size
@@ -40,6 +43,16 @@ class BankImpl implements Bank{
             this.need = Arrays.copyOf(this.need, this.need.length +1);
 
             this.maximum[this.maximum.length -1] = maximumDemand;
+
+            this.allocation[this.allocation.length-1] = new int[this.allocation[0].length];
+            for(int i=0; i<this.allocation[0].length; i++){
+                this.allocation[this.allocation.length-1][i] = 0;
+            }
+
+            this.need[this.need.length-1] = new int[this.need[0].length];
+            for(int i=0;i<this.need[0].length; i++){
+                this.need[this.need.length-1][i] = 0;
+            }
         }
         this.customers.put(customerNumber, new Integer(this.maximum.length-1));
         this.customerNumber ++;
@@ -74,10 +87,10 @@ class BankImpl implements Bank{
 		//if it is safe
 		for(int i=0;i<resourceNumber;i++){
 			available[i] -= request[i];
+            System.err.println(customerIndex);
 			allocation[customerIndex][i] += request[i];
 			need[customerIndex][i] = maximum[customerIndex][i] - allocation[customerIndex][i];
 		}
-
         return true;
 	}
 
