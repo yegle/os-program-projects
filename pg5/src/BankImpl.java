@@ -18,4 +18,52 @@ class BankImpl implements Bank{
 		allocation = new int [numberOfCustomers][];
 		need = new int[numberOfCustomers][];
 	}
+
+	public void addCustomer(int customerNumber, int[] maximumDemand){
+
+	}
+
+	public void getState(){
+		System.out.println("Available:");
+		System.out.print("[ ");
+		for(int i=0;i<numberofResources;i++){
+			System.out.print(available[i] + " ");
+		}
+		System.out.println("]");
+
+		System.out.println("Allocation:");
+		for(i=0;i<numberofCustomers;i++){
+			System.out.print("[ ");
+			for(int j=0;j<numberofResources;j++){
+				System.out.print(allocation[i][j] + " ");
+			}
+			System.out.println("]");
+		}	
+
+		System.out.println("Maximum:");
+		for(i=0;i<numberofCustomers;i++){
+			System.out.print("[ ");
+			for(int j=0;j<numberofResources;j++){
+				System.out.print(allocation[i][j] + " ");
+			}
+			System.out.println("]");
+		}
+
+		System.out.println("Need:");
+		for(i=0;i<numberofCustomers;i++){
+			System.out.print("[ ");
+			for(int j=0;j<numberofResources;j++){
+				System.out.print(allocation[i][j] + " ");
+			}
+			System.out.println("]");
+		}	
+	}
+
+	public boolean requestResources(int customerNumber, int[] request){
+
+	}
+
+	public void releaseResources(int customerNumber, int[] release){
+
+	}
 }
