@@ -18,4 +18,13 @@ class BankImpl implements Bank{
 		allocation = new int [numberOfCustomers][];
 		need = new int[numberOfCustomers][];
 	}
+    public void releaseResources(int customerNumber, int[] release){
+    }
+    public void addCustomer(int customerNumber, int[] maximumDemand){
+    }
+    public void getState(){
+    }
+    public boolean requestResources(int customerNumber, int[] request){
+        return true;
+    }
 }
