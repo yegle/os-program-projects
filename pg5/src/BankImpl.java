@@ -135,7 +135,7 @@ class BankImpl implements Bank{
 	}
 
 	public void releaseResources(int customerNumber, int[] release){
-		System.out.println("Customer: "+ customerNumber +"releasing");
+		System.out.println("Customer: "+ customerNumber +" releasing");
         int customerIndex = (Integer)this.customers.get(customerNumber);
 
 		for(int i=0; i<resourceNumber;i++){
