@@ -25,38 +25,30 @@ class BankImpl implements Bank{
 
 	public void getState(){
 		System.out.println("Available:");
-		System.out.print("[ ");
-		for(int i=0;i<numberofResources;i++){
-			System.out.print(available[i] + " ");
-		}
-		System.out.println("]");
+
+        System.out.println("[" + this.combine(this.available, " ") + "]");
 
 		System.out.println("Allocation:");
-		for(i=0;i<numberofCustomers;i++){
-			System.out.print("[ ");
-			for(int j=0;j<numberofResources;j++){
-				System.out.print(allocation[i][j] + " ");
-			}
-			System.out.println("]");
-		}	
+
+        System.out.println("[");
+        for(int i=0; i<this.allocation; i++){
+            System.out.println(this.combine(this.allocation[i], " "));
+        }
+        System.out.println("]");
+
 
 		System.out.println("Maximum:");
-		for(i=0;i<numberofCustomers;i++){
-			System.out.print("[ ");
-			for(int j=0;j<numberofResources;j++){
-				System.out.print(allocation[i][j] + " ");
-			}
-			System.out.println("]");
-		}
+        System.out.println("[");
+        for(int i=0; i<this.max; i++){
+            System.out.println(this.combine(this.max[i], " "));
+        }
+        System.out.println("]");
 
 		System.out.println("Need:");
-		for(i=0;i<numberofCustomers;i++){
-			System.out.print("[ ");
-			for(int j=0;j<numberofResources;j++){
-				System.out.print(allocation[i][j] + " ");
-			}
-			System.out.println("]");
-		}	
+        System.out.println("[");
+        for(int i=0; i<this.need; i++){
+            System.out.println(this.combine(this.need[i], " "));
+        }
 	}
 
 	public boolean requestResources(int customerNumber, int[] request){
