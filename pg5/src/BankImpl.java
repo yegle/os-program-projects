@@ -31,7 +31,7 @@ class BankImpl implements Bank{
 		System.out.println("Allocation:");
 
         System.out.println("[");
-        for(int i=0; i<this.allocation; i++){
+        for(int i=0; i<this.allocation.length; i++){
             System.out.println(this.combine(this.allocation[i], " "));
         }
         System.out.println("]");
@@ -39,14 +39,14 @@ class BankImpl implements Bank{
 
 		System.out.println("Maximum:");
         System.out.println("[");
-        for(int i=0; i<this.max; i++){
+        for(int i=0; i<this.max.length; i++){
             System.out.println(this.combine(this.max[i], " "));
         }
         System.out.println("]");
 
 		System.out.println("Need:");
         System.out.println("[");
-        for(int i=0; i<this.need; i++){
+        for(int i=0; i<this.need.length; i++){
             System.out.println(this.combine(this.need[i], " "));
         }
 	}
@@ -59,7 +59,7 @@ class BankImpl implements Bank{
 
 	}
 
-    public String combine(String[] s, String glue){
+    public String combine(int[] s, String glue){
         int k = s.length;
         if(k==0){
             return null;
