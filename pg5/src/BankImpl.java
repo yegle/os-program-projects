@@ -1,6 +1,6 @@
 class BankImpl implements Bank{
-	private static int numberOfCustomers;
-	private static int numberOfResources;
+	private static int customerNumber;
+	private static int resourceNumber;
 
 	private static int[] available;
 	private static int[][] maximum;
@@ -9,14 +9,14 @@ class BankImpl implements Bank{
 	private static int[][] need;
 
 	public BankImpl(int[] resources){
-		numberOfResources=resources.length;
+		resourceNumber=resources.length;
 
-		available = new int[numberOfResources];
-		System.arraycopy(resources,0,available,0,numberOfResources);
+		available = new int[resourceNumber];
+		System.arraycopy(resources,0,available,0,resourceNumber);
 
-		maximum = new int[numberOfCustomers][];
-		allocation = new int [numberOfCustomers][];
-		need = new int[numberOfCustomers][];
+		maximum = new int[customerNumber][];
+		allocation = new int [customerNumber][];
+		need = new int[customerNumber][];
 	}
 
 	public void addCustomer(int customerNumber, int[] maximumDemand){
@@ -56,7 +56,13 @@ class BankImpl implements Bank{
 	}
 
 	public void releaseResources(int customerNumber, int[] release){
+		System.out.println("Customer: "+ customerNumber +"releasing");
 
+		for(int i=0; i<resourceNumber;i++){
+			available[i] +=release[i];
+			allocation[customerNumber][i] -=release[i];
+			need[customerNumber][i] = maximum[customerNumber][i] + allocation[customerNumber][i];
+		}
 	}
 
     public String combine(int[] s, String glue){
