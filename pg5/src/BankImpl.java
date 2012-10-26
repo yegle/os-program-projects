@@ -36,8 +36,8 @@ class BankImpl implements Bank{
             for(int i=0;i<this.maximum[0].length;i++){
                 this.maximum[0][i] = maximumDemand[i];
             }
-            for(int i=0;i<this.need.length;i++){
-                this.need[0][i] = 0;
+            for(int i=0;i<this.need[0].length;i++){
+                this.need[0][i] = this.maximum[0][i];
             }
         }
         else{
@@ -58,7 +58,7 @@ class BankImpl implements Bank{
 
             this.need[this.need.length-1] = new int[this.need[0].length];
             for(int i=0;i<this.need[0].length; i++){
-                this.need[this.need.length-1][i] = 0;
+                this.need[this.need.length-1][i] = this.maximum[this.maximum.length-1][i];
             }
         }
         this.customers.put(customerNumber, new Integer(this.maximum.length-1));
@@ -92,6 +92,9 @@ class BankImpl implements Bank{
 
 	public boolean requestResources(int customerNumber, int[] request){
         int customerIndex = (Integer)this.customers.get(customerNumber);
+        if(!this.isSafe(customerNumber, request)){
+            return false;
+        }
 		//if it is safe
 		for(int i=0;i<resourceNumber;i++){
 			available[i] -= request[i];
