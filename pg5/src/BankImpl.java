@@ -71,6 +71,7 @@ class BankImpl implements Bank{
 
 	public boolean requestResources(int customerNumber, int[] request){
         int customerIndex = (Integer)this.customers.get(customerNumber);
+        System.out.println(customerIndex);
 		//if it is safe
 		for(int i=0;i<resourceNumber;i++){
 			available[i] -= request[i];
@@ -107,10 +108,34 @@ class BankImpl implements Bank{
         return ret.toString();
     }
 
+    protected boolean isSafe(int customerNumber, int[] request){
+    }
+
+    protected int[][] matrixOp(int[][] a, int[][] b, boolean plus){
+        assert a.length == b.length;
+        assert a[0].length = b[0].length;
+
+        int[][] result = new int[a.length][a[0].length];
+
+        for(int x=0; x< a.length; x++){
+            for(int y=0; y<a[0].length; y++){
+                if(plus){
+                    result[x][y] = a[x][y] + b[x][y];
+                }
+                else{
+                    result[x][y] = a[x][y] - b[x][y];
+                }
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args){
         int[] available = {10,5,7};
         Bank bank = new BankImpl(available);
         int[] maximumDemand = {1,2,3};
         bank.addCustomer(0, maximumDemand);
+        bank.requestResources(0, maximumDemand);
+        bank.getState();
     }
 }
