@@ -70,9 +70,14 @@ class BankImpl implements Bank{
 	}
 
 	public boolean requestResources(int customerNumber, int[] request){
-        assert this.customers.containsKey(customerNumber);
+		//if it is safe
+		for(int i=0;i<resourceNumber;i++){
+			available[i] -= request[i];
+			allocation[customerNumber][i] += request[i];
+			need[customerNumber][i] = maximum[customerNumber][i] - allocation[customerNumber][i];
+		}
 
-        int customerIndex = (Integer)this.customers.get(customerNumber);
+        return true;
 	}
 
 	public void releaseResources(int customerNumber, int[] release){
