@@ -115,13 +115,13 @@ class BankImpl implements Bank{
                 }
                 //assert (this.available[i] > request[i]);
                 //assert (request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i]);
-                System.out.println((request[i] + this.allocation[customerIndex][i] < this.maximum[customerIndex][i]) + "");
             }
         }
         catch(Exception e){
             return false;
         }
         if(!this.isSafe(customerNumber, request)){
+            System.err.println("Not safe");
             return false;
         }
 		//if it is safe
@@ -165,7 +165,7 @@ class BankImpl implements Bank{
         int[][] allocationLocal = new int[this.customerNumber][this.resourceNumber];
         int[][] needLocal = new int[this.customerNumber][this.resourceNumber];
 
-        for(int i=0; i<this.available.length-1; i++){
+        for(int i=0; i<this.available.length; i++){
             availableLocal[i] = this.available[i];
         }
 
@@ -180,7 +180,20 @@ class BankImpl implements Bank{
             needLocal[customerIndex][i] -= request[i];
         }
 
-        int[] work = availableLocal;
+
+        //System.err.println("needLocal begin");
+        //for(int i=0;i<this.customerNumber;i++){
+        //    System.err.println(this.combine(needLocal[i], ", "));
+        //}
+        //System.err.println("needLocal end");
+
+        int[] work = new int[availableLocal.length];
+        for(int i=0; i<work.length;i++){
+            work[i] = availableLocal[i];
+        }
+        //System.err.println("work begin");
+        //System.err.println(this.combine(work, ", "));
+        //System.err.println("work end");
         boolean[] finish = new boolean[this.customerNumber];
         for(int i=0; i< finish.length; i++){
             finish[i] = false;
@@ -190,6 +203,7 @@ class BankImpl implements Bank{
         for(int i=0; i< finish.length; i++){
             try{
                 for(int j=0;j<work.length;j++){
+                    //System.err.println(needLocal[i][j] + ", " + work[j]);
                     if(needLocal[i][j] > work[j]){
                         throw new Exception();
                     }
