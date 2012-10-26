@@ -25,13 +25,17 @@ class BankImpl implements Bank{
         assert maximumDemand.length == this.resourceNumber;
         assert this.customers.containsKey(customerNumber) == false;
 
+        //System.err.println(customerNumber + ", " + this.combine(maximumDemand, "|"));
+
         if(this.customerNumber == 0){
             //initialize arrays
             this.maximum = new int[1][this.resourceNumber];
             this.allocation = new int[1][this.resourceNumber];
             this.need = new int[1][this.resourceNumber];
 
-            this.maximum[0] = maximumDemand;
+            for(int i=0;i<this.maximum[0].length;i++){
+                this.maximum[0][i] = maximumDemand[i];
+            }
             for(int i=0;i<this.need.length;i++){
                 this.need[0][i] = 0;
             }
@@ -42,7 +46,10 @@ class BankImpl implements Bank{
             this.allocation = Arrays.copyOf(this.allocation, this.allocation.length +1);
             this.need = Arrays.copyOf(this.need, this.need.length +1);
 
-            this.maximum[this.maximum.length -1] = maximumDemand;
+            this.maximum[this.maximum.length -1] = new int[this.maximum[0].length];
+            for(int i=0;i<this.maximum[0].length;i++){
+                this.maximum[this.maximum.length-1][i] = maximumDemand[i];
+            }
 
             this.allocation[this.allocation.length-1] = new int[this.allocation[0].length];
             for(int i=0; i<this.allocation[0].length; i++){
@@ -56,6 +63,7 @@ class BankImpl implements Bank{
         }
         this.customers.put(customerNumber, new Integer(this.maximum.length-1));
         this.customerNumber ++;
+        //System.err.println(customerNumber + ", "+ this.combine(this.maximum[this.maximum.length-1], "|"));
 	}
 
 	public void getState(){
@@ -87,7 +95,7 @@ class BankImpl implements Bank{
 		//if it is safe
 		for(int i=0;i<resourceNumber;i++){
 			available[i] -= request[i];
-            System.err.println(customerIndex);
+            //System.err.println(customerIndex);
 			allocation[customerIndex][i] += request[i];
 			need[customerIndex][i] = maximum[customerIndex][i] - allocation[customerIndex][i];
 		}
