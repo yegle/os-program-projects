@@ -25,11 +25,6 @@ The version requirement may not be strict as the version given above. But only v
  1. Compile `AddressTranslator.java`
  2. Run `java AddressTranslator`
 
-## Document
-
-The javadoc was included in the source code. To generate the document, go to `src/` then run `make doc`. The document will be generated at `$PWD/doc`.
-
-
 # Division of works
 
  * Yuchen Ying
