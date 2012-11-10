@@ -18,13 +18,12 @@ public class BackStore{
 				value[i] = disk.read();
 			}
 
-			disk.close();			
+			disk.close();
 		}
 		catch (IOException e) {
 			System.err.println ("Unable to start the disk");
 			System.exit(1);
-		}			
-	
+		}
 		return value;
 	}
 

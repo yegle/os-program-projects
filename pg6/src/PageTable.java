@@ -16,6 +16,10 @@ public class PageTable{
 
         return -1;
     }
+
+    public void add(int p_num, int f_num){
+        this.table[p_num] = new PageTableItem(f_num, true);
+    }
 }
 
 class PageTableItem{
