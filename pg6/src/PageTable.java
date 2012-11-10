@@ -7,6 +7,15 @@ public class PageTable{
             this.table[i] = new PageTableItem(-1, false);
         }
     }
+
+    public int get(int p_num){
+        int frameNumber = this.table[p_num].getFrameNumber();
+        if(frameNumber == -1){
+            // frame number not in page table
+        }
+
+        return -1;
+    }
 }
 
 class PageTableItem{
@@ -16,5 +25,9 @@ class PageTableItem{
     public PageTableItem(int i, boolean b){
         this.frameNumber = i;
         this.valid = b;
+    }
+
+    public int getFrameNumber(){
+        return this.frameNumber;
     }
 }
