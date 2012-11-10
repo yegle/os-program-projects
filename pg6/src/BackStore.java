@@ -33,5 +33,9 @@ public class BackStore{
 		System.arraycopy(getData(100),0,i,0,32);
 		for(int j=0;j<32;j++)
 			System.out.println(i[j]);
+
+		System.arraycopy(getData(255),0,i,0,32);
+		for(int j=0;j<32;j++)
+			System.out.println(i[j]);
 	}
 }
