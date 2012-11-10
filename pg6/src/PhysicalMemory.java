@@ -17,6 +17,7 @@ public class PhysicalMemory{
         Frame frame = this.frames[f_num];
         return frame.data[offset];
     }
+
 }
 
 class Frame {

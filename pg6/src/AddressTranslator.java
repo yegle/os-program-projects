@@ -30,16 +30,21 @@ public class AddressTranslator {
                 offset = addr % 256;
                 p_num = addr / 256;
 
+                f_num = -1;
                 f_num = tlb.get(p_num);
                 if(f_num == -1){
                     // frame not in TLB
+                    // try page table
+                    f_num = pt.get(p_num);
+                    if(f_num == -1){
+                        // fraem not in page table
+                        // read frame from BackStore
+                        Frame f = new Frame(bs.getData(p_num));
 
-                    // read frame from BackStore
-                    Frame f = new Frame(bs.getData(p_num));
-
-                    // add frame to PhysicalMemory
-                    f_num = pm.addFrame(f);
-                    pt.add(f_num, p_num);
+                        // add frame to PhysicalMemory
+                        f_num = pm.addFrame(f);
+                        pt.add(f_num, p_num);
+                    }
                 }
 
                 phy_addr = f_num * 256 + offset;

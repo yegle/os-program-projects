@@ -12,9 +12,9 @@ public class PageTable{
         int frameNumber = this.table[p_num].getFrameNumber();
         if(frameNumber == -1){
             // frame number not in page table
+            return -1;
         }
-
-        return -1;
+        return frameNumber;
     }
 
     public void add(int p_num, int f_num){
