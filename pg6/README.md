@@ -4,7 +4,7 @@ by [Yuchen Ying](yegle@uga.edu) and [Yue Yin](yinyue@uga.edu).
 
 ## Program Introduction & Directory Structure
 
-In HW #5, we wrote a Java program to implements the bankers algorithm.
+In HW #6, we wrote a Java program to implements a Virtual Memory Manager.
 
 ## System Requirement
 
@@ -22,9 +22,8 @@ The version requirement may not be strict as the version given above. But only v
 
 ## Run
 
- 1. Compile first
- 2. Run `java TestHarness infile.txt a b c`
-	a, b, c are the values for initial available array.
+ 1. Compile `AddressTranslator.java`
+ 2. Run `java AddressTranslator`
 
 ## Document
 
