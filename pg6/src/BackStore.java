@@ -4,20 +4,18 @@ import java.io.*;
 public class BackStore{
 
 
-	public static int getData(int pageNum){
-		int value=0;
+	public static int[] getData(int pageNum){
+		int[] value= new int[32];
 		File fileName;
 		RandomAccessFile disk = null;
 		try{
 			fileName = new File("BACKING_STORE");
 		    disk = new RandomAccessFile(fileName, "r");
 
-			disk.seek(pageNum);
+			disk.seek(pageNum*256);
 
-			for (int i = 0; i < 4; i++) {
-				value = value<<8;			
-				value += disk.read();
-				System.out.println(value);
+			for (int i = 0; i < 32; i++) {
+				value[i] = disk.read();
 			}
 
 			disk.close();			
@@ -31,11 +29,9 @@ public class BackStore{
 	}
 
 	public static void main(String args[]){
-		int i;
-		i=getData(100);
-		System.out.println(i);
-
-		i=getData(255);
-		System.out.println(i);
+		int[] i = new int[32];
+		System.arraycopy(getData(100),0,i,0,32);
+		for(int j=0;j<32;j++)
+			System.out.println(i[j]);
 	}
 }
