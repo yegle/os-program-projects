@@ -3,7 +3,11 @@ import java.io.*;
 
 public class BackStore{
 
-
+	/**
+	 * function of getDate
+	 * 
+	 * @param pageNum	page number
+	 */
 	public static int[] getData(int pageNum){
 		byte[] value = new byte[256];
         int[] result = new int[256];

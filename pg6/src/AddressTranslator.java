@@ -6,14 +6,45 @@ public class AddressTranslator {
 	public static void main(String[] args){
 		//String inputFile = args[0];
 		String inputFile = "InputFile.txt";
+
+		/**
+		 * variable of logical address
+		 */
         int addr;
+
+		/**
+		 * variable of page number
+		 */
         int p_num;
+
+		/**
+		 * variable of offset
+		 */
         int offset;
+
+		/**
+		 * variable of frame number
+		 */
         int f_num;
+
+		/**
+		 * variable of value stored in address
+		 */
         int value;
+
+		/**
+		 * variable of physics address
+		 */
         int phy_addr;
 
+		/**
+		 * variable of count of tlb miss
+		 */
         int tlb_miss = 0;
+
+		/**
+		 * variable of count of page fault
+		 */
         int page_fault = 0;
 
 
