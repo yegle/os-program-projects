@@ -13,17 +13,20 @@ public class AddressTranslator {
 			int addr;
             int p_num;
             int offset;
-            Formatter f = new Formatter(new StringBuilder());
+            int phy_addr;
 
             while(sc.hasNextInt()){
                 addr = sc.nextInt();
+                System.out.println(addr);
                 // 2^16 = 4^8 = 16^4
                 // mask the high 16bit
                 addr = addr % 65536;
                 offset = addr % 256;
                 p_num = addr / 256;
+
+
 				System.out.println(
-                    f.format("%s, %s, %s\n", addr, offset, p_num)
+                    String.format("%s, %s, %s", addr, offset, p_num)
                 );
             }
 		} catch(Exception e){
