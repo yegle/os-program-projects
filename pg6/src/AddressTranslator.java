@@ -8,22 +8,27 @@ public class AddressTranslator {
 		String inputFile = "InputFile.txt";
 
 		try{
-			BufferedReader inFile = new BufferedReader(new FileReader(inputFile));
+            Scanner sc = new Scanner(new File(inputFile));
 
 			int addr;
-			while((inFile.readLine())!= null){
-				addr = Integer.valueOf(inFile.readLine());
+            int p_num;
+            int offset;
+            Formatter f = new Formatter(new StringBuilder());
+
+            while(sc.hasNextInt()){
+                addr = sc.nextInt();
                 // 2^16 = 4^8 = 16^4
                 // mask the high 16bit
-                addr = addr & 0xff00;
-				System.out.println(addr);
-			}
-		}
-		catch (FileNotFoundException fnfe) {
-			throw new Error("Unable to find file " + inputFile);
-		}
-		catch (IOException ioe) {
-			throw new Error("Error processing " + inputFile);
-		}
+                addr = addr % 65536;
+                offset = addr % 256;
+                p_num = addr / 256;
+				System.out.println(
+                    f.format("%s, %s, %s\n", addr, offset, p_num)
+                );
+            }
+		} catch(Exception e){
+            e.printStackTrace();
+            System.exit(0);
+        }
 	}
 }
