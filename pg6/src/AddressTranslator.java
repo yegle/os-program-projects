@@ -43,7 +43,7 @@ public class AddressTranslator {
 
                         // add frame to PhysicalMemory
                         f_num = pm.addFrame(f);
-                        pt.add(f_num, p_num);
+                        pt.add(p_num, f_num);
                     }
                 }
 

@@ -5,7 +5,8 @@ public class BackStore{
 
 
 	public static int[] getData(int pageNum){
-		int[] value= new int[256];
+		byte[] value = new byte[256];
+        int[] result = new int[256];
 		File fileName;
 		RandomAccessFile disk = null;
 		try{
@@ -14,10 +15,7 @@ public class BackStore{
 
             // seek in bit
 			disk.seek(pageNum*256);
-
-			for (int i = 0; i < 256; i++) {
-				value[i] = disk.read();
-			}
+            disk.read(value);
 
 			disk.close();
 		}
@@ -25,7 +23,10 @@ public class BackStore{
 			System.err.println ("Unable to start the disk");
 			System.exit(1);
 		}
-		return value;
+        for(int i=0; i<256; i++){
+            result[i] = value[i];
+        }
+        return result;
 	}
 
 	public static void main(String args[]){
