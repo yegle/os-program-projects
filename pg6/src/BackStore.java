@@ -13,7 +13,7 @@ public class BackStore{
 		    disk = new RandomAccessFile(fileName, "r");
 
             // seek in bit
-			disk.seek(pageNum*256*8);
+			disk.seek(pageNum*256);
 
 			for (int i = 0; i < 256; i++) {
 				value[i] = disk.read();
