@@ -13,8 +13,9 @@ public class AddressTranslator {
 			int addr;
 			while((inFile.readLine())!= null){
 				addr = Integer.valueOf(inFile.readLine());
-				addr = addr<<8;
-				addr = addr>>8;
+                // 2^16 = 4^8 = 16^4
+                // mask the high 16bit
+                addr = addr & 0xff00;
 				System.out.println(addr);
 			}
 		}
