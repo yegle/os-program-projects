@@ -3,7 +3,7 @@ import java.lang.*;
 
 public class TLB{
 
-    /**
+	/**
 	 * Hashtable table
 	 * used to implement the TLB
 	 */
@@ -18,7 +18,7 @@ public class TLB{
         }
     }
 
-    /**
+	/**
 	 * function of get
 	 * 
 	 * @param p_num	page num
@@ -32,7 +32,7 @@ public class TLB{
         }
     }
 
-    /**
+	/**
 	 * function of put
 	 * 
 	 * @param p_num		page number
