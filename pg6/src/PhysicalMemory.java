@@ -8,7 +8,7 @@ public class PhysicalMemory{
     }
 
     public int addFrame(Frame f){
-        this.frames[this.currentFreeFrame] = new Frame(f);
+        this.frames[this.currentFreeFrame] = new Frame(f.data);
         this.currentFreeFrame++;
         return this.currentFreeFrame-1;
     }

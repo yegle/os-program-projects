@@ -6,16 +6,19 @@ public class AddressTranslator {
 	public static void main(String[] args){
 		//String inputFile = args[0];
 		String inputFile = "InputFile.txt";
+        int addr;
+        int p_num;
+        int offset;
+        int f_num;
+        int value;
+        int phy_addr;
+
+        int tlb_miss = 0;
+        int page_fault = 0;
+
 
 		try{
             Scanner sc = new Scanner(new File(inputFile));
-
-			int addr;
-            int p_num;
-            int offset;
-            int f_num;
-            int value;
-            int phy_addr;
 
             TLB tlb = new TLB();
             PageTable pt = new PageTable();
@@ -33,10 +36,12 @@ public class AddressTranslator {
                 f_num = -1;
                 f_num = tlb.get(p_num);
                 if(f_num == -1){
+                    tlb_miss++;
                     // frame not in TLB
                     // try page table
                     f_num = pt.get(p_num);
                     if(f_num == -1){
+                        page_fault++;
                         // fraem not in page table
                         // read frame from BackStore
                         Frame f = new Frame(bs.getData(p_num));
@@ -44,6 +49,7 @@ public class AddressTranslator {
                         // add frame to PhysicalMemory
                         f_num = pm.addFrame(f);
                         pt.add(p_num, f_num);
+                        tlb.put(p_num, f_num);
                     }
                 }
 
@@ -54,6 +60,7 @@ public class AddressTranslator {
                     String.format("Virtual address: %s Physical address: %s Value: %s", addr, phy_addr , value)
                 );
             }
+            System.out.println(String.format("TLB miss: %s, Page Fault: %s", tlb_miss, page_fault));
 		} catch(Exception e){
             e.printStackTrace();
             System.exit(0);

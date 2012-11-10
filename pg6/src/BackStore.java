@@ -13,7 +13,7 @@ public class BackStore{
 			fileName = new File("BACKING_STORE");
 		    disk = new RandomAccessFile(fileName, "r");
 
-            // seek in bit
+            // seek in byte
 			disk.seek(pageNum*256);
             disk.read(value);
 
