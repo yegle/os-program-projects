@@ -14,7 +14,6 @@ public class PhysicalMemory{
     }
 
     public int getValue(int f_num, int offset){
-        of
         Frame frame = this.frames[f_num];
         return frame.data[offset];
     }
@@ -24,14 +23,14 @@ class Frame {
     int[] data;
 
     public Frame(int[] d){
-        this.data = new int[32];
-        for(int i=0;i<32;i++){
+        this.data = new int[256];
+        for(int i=0;i<256;i++){
             this.data[i] = d[i];
         }
     }
 
     public Frame(Frame f){
-        this.data = new int[32];
-        System.arraycopy(f.data, 0, this.data, 0, 32);
+        this.data = new int[256];
+        System.arraycopy(f.data, 0, this.data, 0, 256);
     }
 }

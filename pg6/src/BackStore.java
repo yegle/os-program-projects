@@ -5,16 +5,17 @@ public class BackStore{
 
 
 	public static int[] getData(int pageNum){
-		int[] value= new int[32];
+		int[] value= new int[256];
 		File fileName;
 		RandomAccessFile disk = null;
 		try{
 			fileName = new File("BACKING_STORE");
 		    disk = new RandomAccessFile(fileName, "r");
 
-			disk.seek(pageNum*256);
+            // seek in bit
+			disk.seek(pageNum*256*8);
 
-			for (int i = 0; i < 32; i++) {
+			for (int i = 0; i < 256; i++) {
 				value[i] = disk.read();
 			}
 
