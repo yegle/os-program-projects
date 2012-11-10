@@ -2,6 +2,11 @@ import java.util.*;
 import java.lang.*;
 
 public class TLB{
+
+    /**
+	 * Hashtable table
+	 * used to implement the TLB
+	 */
     Hashtable table;
     LinkedList <Integer> list = new LinkedList<Integer>();
 
@@ -13,6 +18,11 @@ public class TLB{
         }
     }
 
+    /**
+	 * function of get
+	 * 
+	 * @param p_num	page num
+	 */
     public int get(int p_num){
         if(this.table.containsKey(p_num)){
             return (int) this.table.get(p_num);
@@ -22,6 +32,12 @@ public class TLB{
         }
     }
 
+    /**
+	 * function of put
+	 * 
+	 * @param p_num		page number
+	 * @param f_num		frame number
+	 */
     public void put(int p_num, int f_num){
         // we need to do two things:
         // 1. delete the oldest data in TLB
