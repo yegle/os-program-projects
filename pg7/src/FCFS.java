@@ -14,9 +14,9 @@ class FCFS implements DiskScheduler{
 	}
 
 	public int serviceRequests(){
-		sum += rString[1] - start;
+		sum += Math.abs(rString[1] - start);
 		for(int i=1;i<rString.length;i++){
-			sum += rString[i];
+			sum += Math.abs(rString[i]-rString[i-1]);
 		}
 
 		return sum;
