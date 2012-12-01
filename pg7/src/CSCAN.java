@@ -5,6 +5,7 @@ class CSCAN implements DiskScheduler{
 	private static int start;
 
 	private static int sum;
+    private static int RANGE = 100;
 
 
 	public CSCAN(int[] rS, int s){
@@ -29,9 +30,9 @@ class CSCAN implements DiskScheduler{
             if(list.contains(new Integer(currentPos))){
                 list.remove(new Integer(currentPos));
             }
-            if(currentPos == 199){
-                sum += 199;
-                currentPos = 0;
+            if(currentPos == this.RANGE){
+                sum += this.RANGE;
+                currentPos = -1;
             }
         }
         return sum;

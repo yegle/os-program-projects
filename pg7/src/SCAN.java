@@ -5,6 +5,7 @@ class SCAN implements DiskScheduler{
 	private static int start;
 
 	private static int sum;
+    private static int RANGE = 100;
 
 
 	public SCAN(int[] rS, int s){
@@ -29,7 +30,7 @@ class SCAN implements DiskScheduler{
             if(list.contains(new Integer(currentPos))){
                 list.remove(new Integer(currentPos));
             }
-            if(currentPos == 0 || currentPos == 199){
+            if(currentPos == 0 || currentPos == this.RANGE){
                 direction = -direction;
             }
         }
