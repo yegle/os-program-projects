@@ -41,7 +41,7 @@ class SCAN implements DiskScheduler{
 
 		//int[] referenceString = ref.getCylinders();
 		int[] referenceString = {98,183,37,122,14,124,65,67};
-		DiskScheduler scan = new FCFS(referenceString, 53);
+		DiskScheduler scan = new SCAN(referenceString, 53);
 
 		System.out.println("SCAN = " + scan.serviceRequests());
     }
