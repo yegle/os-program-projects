@@ -12,5 +12,7 @@ class test{
 		System.out.println("SCAN = " + scan.serviceRequests());
         DiskScheduler cscan = new CSCAN(referenceString, 53);
 		System.out.println("CSCAN = " + cscan.serviceRequests());
+        DiskScheduler look = new LOOK(referenceString, 53);
+		System.out.println("LOOK = " + look.serviceRequests());
     }
 }
