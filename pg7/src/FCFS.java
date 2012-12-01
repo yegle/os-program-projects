@@ -14,7 +14,7 @@ class FCFS implements DiskScheduler{
 	}
 
 	public int serviceRequests(){
-		sum += Math.abs(rString[1] - start);
+		sum += Math.abs(rString[0] - start);
 		for(int i=1;i<rString.length;i++){
 			//sum += Math.min(Math.abs(rString[i]-rString[i-1]),99-Math.abs(rString[i]-rString[i-1]));
 			sum += Math.abs(rString[i]-rString[i-1]);
@@ -24,10 +24,11 @@ class FCFS implements DiskScheduler{
 	}
 
 	public static void main(String[] args){
-        Generator ref = new Generator();
+        //Generator ref = new Generator();
 
-		int[] referenceString = ref.getCylinders();
-		DiskScheduler fcfs = new FCFS(referenceString, 13);
+		//int[] referenceString = ref.getCylinders();
+		int[] referenceString = {98,183,37,122,14,124,65,67};
+		DiskScheduler fcfs = new FCFS(referenceString, 53);
 
 		System.out.println("FCFS = " + fcfs.serviceRequests());
     }
