@@ -43,8 +43,9 @@ class SSTF implements DiskScheduler{
             }
             counter++;
         }
+        int ret = list.get(pos);
         list.remove(pos);
-        return pos;
+        return ret;
     }
 
 	public static void main(String[] args){
