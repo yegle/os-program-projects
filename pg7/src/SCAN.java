@@ -15,33 +15,54 @@ class SCAN implements DiskScheduler{
 		this.sum=0;
 	}
 
-	public int serviceRequests(){
-		int pos;
-		int currentPos = this.start;
-		int flag=1;
-		int count=0;
+	//public int serviceRequests(){
+	//	int pos;
+	//	int currentPos = this.start;
+	//	int flag=1;
+	//	int count=0;
 
-		ArrayList <Integer> list = new ArrayList<Integer>();
-		for(int i=0;i<this.rString.length;i++){
-			list.add(new Integer(this.rString[i]));
-		}
-		while((pos=this.findNearestPos(list, currentPos))>=0){
-			sum += Math.abs(currentPos-pos);
-			currentPos = pos;
-			count++;
-		}
+	//	ArrayList <Integer> list = new ArrayList<Integer>();
+	//	for(int i=0;i<this.rString.length;i++){
+	//		list.add(new Integer(this.rString[i]));
+	//	}
+	//	while((pos=this.findNearestPos(list, currentPos))>=0){
+	//		sum += Math.abs(currentPos-pos);
+	//		currentPos = pos;
+	//		count++;
+	//	}
 
-		sum += currentPos;
-		currentPos = 0;
-		for(int i=0;i<this.rString.length-count;i++){
-			pos = this.findNearestPos2(list, currentPos);
-            sum += Math.abs(currentPos-pos);
-            currentPos = pos;
-		}
-		
+	//	sum += currentPos;
+	//	currentPos = 0;
+	//	for(int i=0;i<this.rString.length-count;i++){
+	//		pos = this.findNearestPos2(list, currentPos);
+    //        sum += Math.abs(currentPos-pos);
+    //        currentPos = pos;
+	//	}
 
-		return sum;
-	}
+	//	return sum;
+	//}
+    public int serviceRequests(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(int i=0; i<this.rString.length; i++){
+            list.add(new Integer(this.rString[i]));
+        }
+
+        int direction = -1;
+        int currentPos = this.start;
+        int lastPos = this.start;
+        int sum = 0;
+        while(!list.isEmpty()){
+            currentPos += direction;
+            sum++;
+            if(list.contains(new Integer(currentPos))){
+                list.remove(new Integer(currentPos));
+            }
+            if(currentPos == 0 || currentPos == 200){
+                direction = -direction;
+            }
+        }
+        return sum;
+    }
 
     private int findNearestPos(ArrayList<Integer> list, int currentPos){
         int minDistance = Math.abs(currentPos-0);
